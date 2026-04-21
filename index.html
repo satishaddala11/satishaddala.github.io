@@ -3,167 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satish Addala | Senior Data & Cryptography Engineer</title>
+    <title>SATISH::CORE_OS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&family=Inter:wght@300;800&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #3b82f6; --bg: #030712; }
-        body { font-family: 'Outfit', sans-serif; background-color: var(--bg); color: #f3f4f6; scroll-behavior: smooth; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
-        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .card-hover:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .reveal { animation: fadeIn 0.8s ease forwards; }
-        .gradient-text { background: linear-gradient(90deg, #60a5fa, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        :root { --neon: #00ff41; --bg: #050505; }
+        body { background: var(--bg); color: var(--neon); font-family: 'Fira Code', monospace; overflow-x: hidden; }
+        .glitch { animation: glitch 1s linear infinite; }
+        @keyframes glitch { 2%, 64% { transform: translate(2px,0) skew(0deg); } 4%, 60% { transform: translate(-2px,0) skew(0deg); } 62% { transform: translate(0,0) skew(5deg); } }
+        .terminal-window { background: rgba(0, 0, 0, 0.9); border: 1px solid #333; box-shadow: 0 0 40px rgba(0, 255, 65, 0.1); }
+        .scanline { width: 100%; height: 100px; z-index: 100; background: linear-gradient(0deg, rgba(0, 255, 65, 0.1) 0%, transparent 100%); position: absolute; animation: scan 4s linear infinite; pointer-events: none; }
+        @keyframes scan { 0% { top: -100px; } 100% { top: 100%; } }
+        .cmd-btn { border: 1px solid var(--neon); padding: 5px 15px; transition: all 0.3s; cursor: pointer; }
+        .cmd-btn:hover { background: var(--neon); color: black; }
     </style>
 </head>
-<body class="selection:bg-blue-500/30">
+<body class="p-4 md:p-10">
+    <div class="scanline"></div>
 
-    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 py-4 px-6 md:px-12 flex justify-between items-center">
-        <div class="text-xl font-bold tracking-tighter mono">SATISH_ADDALA<span class="text-blue-500 animate-pulse">_</span></div>
-        <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-medium">
-            <a href="#experience" class="hover:text-blue-400 transition">Experience</a>
-            <a href="#projects" class="hover:text-blue-400 transition">Projects</a>
-            <a href="#education" class="hover:text-blue-400 transition">Education</a>
-            <a href="mailto:satish.addala1144@gmail.com" class="text-blue-400 border border-blue-400/30 px-4 py-1 rounded-full hover:bg-blue-400 hover:text-white transition">Hire Me</a>
+    <header class="flex justify-between items-center mb-10 border-b border-gray-800 pb-4">
+        <div>
+            <h1 class="text-2xl font-bold glitch uppercase tracking-tighter">Satish_Addala_v2.0.26</h1>
+            <p class="text-xs opacity-50">STATUS: ENCRYPTED // LOC: KANSAS CITY, MO</p>
         </div>
-    </nav>
-
-    <section class="min-h-screen flex items-center justify-center pt-20 px-6 text-center">
-        <div class="max-w-4xl reveal">
-            <h2 class="mono text-blue-500 text-sm mb-4 tracking-[0.3em] uppercase">Graduate CS @ UMKC</h2>
-            <h1 class="text-5xl md:text-8xl font-bold mb-6 tracking-tight">Performance Driven <span class="gradient-text">Engineer.</span></h1>
-            <p class="text-gray-400 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
-                Transforming raw data into actionable intelligence through scalable architecture and applied cryptography[cite: 9, 6]. 
-                Expert in OCI Cloud and Python-driven automation[cite: 8].
-            </p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#projects" class="bg-blue-600 px-8 py-3 rounded-full font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-600/20">Explore Architecture</a>
-                <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="glass px-8 py-3 rounded-full font-bold hover:bg-white/5 transition">LinkedIn Profile</a>
-            </div>
+        <div class="text-right hidden md:block">
+            <p class="text-xs">Uptime: 23,840h</p>
+            <p class="text-xs text-blue-500">Master's @ UMKC [2026]</p>
         </div>
-    </section>
+    </header>
 
-    <section id="experience" class="py-24 px-6 max-w-5xl mx-auto">
-        <h3 class="text-3xl font-bold mb-16 flex items-center gap-4"><span class="text-blue-500 text-sm mono">01.</span> Professional Log</h3>
+    <main class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <div class="space-y-12">
-            <div class="glass p-8 rounded-2xl card-hover transition-all border-l-4 border-blue-500">
-                <div class="flex justify-between items-start mb-4">
+        <aside class="lg:col-span-4 space-y-6">
+            <div class="terminal-window p-6 rounded-lg">
+                <h2 class="text-white font-bold mb-4 flex items-center gap-2">
+                    <span class="w-2 h-2 bg-red-500 rounded-full animate-ping"></span> BIO_INIT
+                </h2>
+                <p class="text-sm leading-relaxed text-gray-300">
+                    I am a performance-driven Graduate Student at **UMKC** specializing in **Applied Cryptography**[cite: 6, 8]. 
+                    I don't just write code; I architect secure data ecosystems.
+                </p>
+                <div class="mt-6 space-y-2">
+                    <p class="text-xs text-gray-500">// ASSETS_UNLOCKED</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="cmd-btn text-[10px]">Python (AES/ECC)</span>
+                        <span class="cmd-btn text-[10px]">Java</span>
+                        <span class="cmd-btn text-[10px]">SQL_OPT</span>
+                        <span class="cmd-btn text-[10px]">OCI_CLOUD</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="terminal-window p-6 rounded-lg border-blue-500/30">
+                <h2 class="text-blue-400 font-bold mb-4">RECRUITER_LOGIN</h2>
+                <div class="bg-gray-900 p-2 text-xs mb-4">
+                    > Enter Password: <span class="animate-pulse">_</span>
+                </div>
+                <p class="text-[10px] text-gray-500 italic">Hint: The password is "HIRE_SATISH" (or just click below).</p>
+                <a href="mailto:satish.addala1144@gmail.com" class="block w-full text-center bg-blue-600 text-black font-bold py-2 mt-4 hover:bg-blue-400 transition">GENERATE_OFFER_LETTER</a>
+            </div>
+        </aside>
+
+        <section class="lg:col-span-8 space-y-8">
+            
+            <div class="terminal-window p-6 rounded-lg border-l-4 border-neon">
+                <h3 class="text-white font-bold mb-6 text-xl tracking-widest uppercase">./Work_Experience</h3>
+                <div class="space-y-8">
                     <div>
-                        <h4 class="text-2xl font-bold">Information Services Lab Assistant</h4>
-                        <p class="text-blue-400 mono text-sm uppercase">UMKC | Kansas City, MO [cite: 11, 12]</p>
+                        <p class="text-neon font-bold">INFO_SERVICES_LAB_ASSISTANT @ UMKC</p>
+                        <p class="text-[10px] opacity-50 mb-2">2024 - PRESENT // KANSAS CITY [cite: 11, 12]</p>
+                        <ul class="text-sm text-gray-300 list-disc list-inside">
+                            <li>Maintaining 99.9% uptime for campus network infrastructure[cite: 13].</li>
+                            <li>Reduced manual intervention by 20% via Python automation[cite: 15].</li>
+                        </ul>
                     </div>
-                    <span class="text-gray-500 text-sm mono">2024 - PRESENT [cite: 12]</span>
-                </div>
-                <ul class="text-gray-400 space-y-3 list-none">
-                    <li><i class="fas fa-terminal text-blue-500 mr-2 text-xs"></i> Orchestrating campus-wide network infrastructure, maintaining 99.9% uptime[cite: 13].</li>
-                    <li><i class="fas fa-terminal text-blue-500 mr-2 text-xs"></i> Reducing manual diagnostics by 20% through custom Python automation scripts[cite: 15].</li>
-                </ul>
-            </div>
-
-            <div class="glass p-8 rounded-2xl card-hover transition-all">
-                <div class="flex justify-between items-start mb-4">
                     <div>
-                        <h4 class="text-2xl font-bold">Data Associate</h4>
-                        <p class="text-blue-400 mono text-sm uppercase">IBM | Hyderabad, India [cite: 17, 18]</p>
-                    </div>
-                    <span class="text-gray-500 text-sm mono">2023 - 2024 [cite: 18]</span>
-                </div>
-                <ul class="text-gray-400 space-y-3 list-none">
-                    <li><i class="fas fa-database text-blue-500 mr-2 text-xs"></i> Architected scalable Java/SQL data modules for high-concurrency environments[cite: 19].</li>
-                    <li><i class="fas fa-database text-blue-500 mr-2 text-xs"></i> Optimized legacy SQL schemas to significantly improve data retrieval latency[cite: 20].</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="py-24 bg-black/30">
-        <div class="max-w-6xl mx-auto px-6">
-            <h3 class="text-3xl font-bold mb-16 text-center">Core Systems Architecture</h3>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="glass p-10 rounded-3xl border-white/10 hover:border-blue-500/50 transition group">
-                    <div class="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center mb-8 text-blue-500 text-2xl group-hover:scale-110 transition">
-                        <i class="fas fa-fingerprint"></i>
-                    </div>
-                    <h4 class="text-2xl font-bold mb-4">Secure Digital Voting System</h4>
-                    <p class="text-gray-400 leading-relaxed mb-6">
-                        An advanced cryptographic platform leveraging **Elliptic Curve Cryptography (ECC)** and **HMAC** authentication to ensure voter anonymity and data integrity.
-                    </p>
-                    <div class="flex gap-3 text-xs mono text-blue-400 uppercase tracking-tighter">
-                        <span>#ECC</span> <span>#Python</span> <span>#HMAC</span>
-                    </div>
-                </div>
-
-                <div class="glass p-10 rounded-3xl border-white/10 hover:border-emerald-500/50 transition group">
-                    <div class="w-14 h-14 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-8 text-emerald-500 text-2xl group-hover:scale-110 transition">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <h4 class="text-2xl font-bold mb-4">Smart Plant Monitoring (IoT)</h4>
-                    <p class="text-gray-400 leading-relaxed mb-6">
-                        Real-time IoT solution for environmental tracking with secure sensor-to-cloud data ingestion and automated reporting.
-                    </p>
-                    <div class="flex gap-3 text-xs mono text-emerald-400 uppercase tracking-tighter">
-                        <span>#IoT</span> <span>#DataEng</span> <span>#Cloud</span>
+                        <p class="text-neon font-bold text-blue-400">DATA_ASSOCIATE @ IBM</p>
+                        <p class="text-[10px] opacity-50 mb-2">2023 - 2024 // HYDERABAD [cite: 17, 18]</p>
+                        <p class="text-sm text-gray-300 italic">"Architected scalable data modules with Java and restructured legacy SQL schemas"[cite: 19, 20].</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="education" class="py-24 px-6 max-w-4xl mx-auto">
-        <h3 class="text-3xl font-bold mb-12">Academic Foundations</h3>
-        <div class="space-y-8">
-            <div class="flex items-start gap-6 border-l border-gray-800 pl-8">
-                <div class="mt-1"><i class="fas fa-graduation-cap text-blue-500"></i></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="terminal-window p-6 rounded-lg group hover:bg-neon hover:text-black transition">
+                    <h4 class="font-bold mb-2 uppercase">Secure_Voting.exe</h4>
+                    <p class="text-xs opacity-70 group-hover:text-black">Digital voting system using **ECC** and **HMAC** authentication for total data integrity[cite: 8].</p>
+                </div>
+                <div class="terminal-window p-6 rounded-lg group hover:bg-blue-500 hover:text-black transition border-blue-900">
+                    <h4 class="font-bold mb-2 uppercase">IoT_Monitor.pkg</h4>
+                    <p class="text-xs opacity-70 group-hover:text-black">Real-time environmental sensor array with secure cloud-native data streaming.</p>
+                </div>
+            </div>
+
+            <div class="terminal-window p-6 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <h4 class="text-xl font-bold">University of Missouri-Kansas City</h4>
-                    <p class="text-gray-400">Master of Science in Computer Science [cite: 30, 31]</p>
-                    <p class="text-blue-500 text-sm mono mt-1">Expected Completion: 2026 [cite: 31]</p>
+                    <h3 class="text-white font-bold mb-4 uppercase text-xs">Education_Logs</h3>
+                    <p class="text-[10px]">MS_CS | UMKC | 2026 [cite: 30, 31]</p>
+                    <p class="text-[10px]">B.TECH_CS | GITAM | 2023 [cite: 32]</p>
                 </div>
-            </div>
-            <div class="flex items-start gap-6 border-l border-gray-800 pl-8">
-                <div class="mt-1"><i class="fas fa-university text-gray-500"></i></div>
                 <div>
-                    <h4 class="text-xl font-bold">GITAM University</h4>
-                    <p class="text-gray-400">B.Tech in Computer Science [cite: 32]</p>
-                    <p class="text-gray-500 text-sm mono mt-1">2019 - 2023 [cite: 32]</p>
+                    <h3 class="text-white font-bold mb-4 uppercase text-xs">Cert_Validation</h3>
+                    <p class="text-[10px] text-blue-400">OCI_FOUNDATIONS_2025 [cite: 38]</p>
+                    <p class="text-[10px] text-emerald-400">SNOWFLAKE_WKS_2026 [cite: 37]</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section class="py-24 px-6 border-t border-white/5 bg-blue-600/5">
-        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-                <p class="text-blue-500 font-bold text-lg">OCI 2025</p>
-                <p class="text-xs text-gray-500 uppercase mono">Certified Associate [cite: 38]</p>
-            </div>
-            <div>
-                <p class="text-blue-500 font-bold text-lg">SNOWFLAKE</p>
-                <p class="text-xs text-gray-500 uppercase mono">Data Workshop 2026 [cite: 37]</p>
-            </div>
-            <div>
-                <p class="text-blue-500 font-bold text-lg">IBM AI</p>
-                <p class="text-xs text-gray-500 uppercase mono">Python for Data Science [cite: 38]</p>
-            </div>
-            <div>
-                <p class="text-blue-500 font-bold text-lg">JUPYTER</p>
-                <p class="text-xs text-gray-500 uppercase mono">Scientific Computing [cite: 35]</p>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <footer class="py-20 text-center glass border-t border-white/5">
-        <h2 class="text-3xl font-bold mb-8 tracking-tighter">Ready to Deploy?</h2>
-        <div class="flex justify-center space-x-12 mb-12">
-            <a href="mailto:satish.addala1144@gmail.com" class="text-2xl text-gray-400 hover:text-blue-500 transition"><i class="fas fa-envelope"></i></a>
-            <a href="tel:+18167154265" class="text-2xl text-gray-400 hover:text-blue-500 transition"><i class="fas fa-phone"></i></a>
-            <a href="https://www.linkedin.com/in/satish-addala-26a05320b" class="text-2xl text-gray-400 hover:text-blue-500 transition"><i class="fab fa-linkedin"></i></a>
+    <footer class="mt-20 text-center border-t border-gray-800 pt-8">
+        <div class="flex justify-center gap-10 mb-6">
+            <a href="https://www.linkedin.com/in/satish-addala-26a05320b" class="hover:text-white transition">LINKEDIN</a>
+            <a href="tel:+18167154265" class="hover:text-white transition">VOICE_CHANNEL</a>
+            <a href="mailto:satish.addala1144@gmail.com" class="hover:text-white transition">MAIL_SERVER</a>
         </div>
-        <p class="text-xs mono text-gray-600 uppercase tracking-[0.5em]">System.Secure.Connect(Satish_Addala)</p>
+        <p class="text-[8px] tracking-[0.8em] opacity-30 uppercase">All connections are monitored and logged. Copyright © 2026 Satish Addala.</p>
     </footer>
 
+    <script>
+        // Subtle AI-like text typing effect
+        console.log("SYSTEM BOOT: Satish Addala Portfolio v2.0.26 Loaded.");
+        console.log("OCI Certificates: Validated.");
+        console.log("UMKC Research Logs: Synchronized.");
+    </script>
 </body>
 </html>
