@@ -3,143 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satish Addala | Computer Science Graduate & Data Engineer</title>
+    <title>Satish Addala | Data Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Fraunces:ital,opsz,wght@0,9..144,700;1,9..144,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1e293b; scroll-behavior: smooth; }
-        .heading-font { font-family: 'Playfair Display', serif; }
-        .passport-photo { width: 220px; height: 220px; object-fit: cover; object-position: top; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
-        .project-card { border: 1px solid #e2e8f0; transition: all 0.3s ease; }
-        .project-card:hover { transform: translateY(-5px); border-color: #3b82f6; box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1); }
-        .section-light { background-color: #f8fafc; }
-        .badge { background: #eff6ff; color: #1d4ed8; padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ffffff; color: #1a1a1a; scroll-behavior: smooth; }
+        .serif { font-family: 'Fraunces', serif; }
+        .photo-frame { width: 220px; height: 220px; object-fit: cover; object-position: top; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08); }
+        .nav-link { position: relative; transition: color 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #2563eb; transition: width 0.3s ease; }
+        .nav-link:hover::after { width: 100%; }
+        .card { background: #ffffff; border: 1px solid #f1f5f9; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card:hover { transform: translateY(-8px); border-color: #e2e8f0; box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05); }
+        .bg-soft { background-color: #fafafa; }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-    <nav class="sticky top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 py-4 px-6 md:px-20 flex justify-between items-center">
-        <div class="text-xl font-extrabold tracking-tight text-slate-900">SATISH <span class="text-blue-600">ADDALA</span></div>
-        <div class="hidden md:flex space-x-8 text-sm font-semibold text-slate-600 uppercase tracking-wider">
-            <a href="#experience" class="hover:text-blue-600 transition">Experience</a>
-            <a href="#projects" class="hover:text-blue-600 transition">Projects</a>
-            <a href="#credentials" class="hover:text-blue-600 transition">Credentials</a>
-            <a href="mailto:satish.addala1144@gmail.com" class="bg-slate-900 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">Contact</a>
+    <nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-lg border-b border-slate-50 py-5 px-8 md:px-20 flex justify-between items-center">
+        <div class="text-xl font-extrabold tracking-tighter uppercase">Satish <span class="text-blue-600">Addala</span></div>
+        <div class="hidden md:flex space-x-10 text-xs font-bold uppercase tracking-widest text-slate-500">
+            <a href="#experience" class="nav-link hover:text-slate-900">Experience</a>
+            <a href="#projects" class="nav-link hover:text-slate-900">Projects</a>
+            <a href="#education" class="nav-link hover:text-slate-900">Education</a>
+            <a href="mailto:satish.addala1144@gmail.com" class="bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-slate-900 transition-all duration-300 shadow-lg shadow-blue-200">Contact</a>
         </div>
     </nav>
 
-    <section class="py-24 px-6 max-w-6xl mx-auto">
-        <div class="flex flex-col md:flex-row items-center gap-16">
-            <div class="flex-shrink-0">
-                <img src="IMG_2443.png" alt="Satish Addala" class="passport-photo border-4 border-slate-50">
+    <section class="min-h-screen flex items-center pt-24 px-8 max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-4 flex justify-center md:justify-start">
+                <img src="IMG_2443.png" alt="Satish Addala" class="photo-frame border-8 border-white">
             </div>
-            <div>
-                <h1 class="heading-font text-5xl md:text-7xl text-slate-900 mb-6 leading-tight">Architecting Data <br><span class="text-blue-600">with Precision.</span></h1>
-                <p class="text-slate-600 text-xl leading-relaxed mb-8 max-w-2xl">
-                    Computer Science Graduate Student at **UMKC** with a passion for **Applied Cryptography** and Scalable Data Engineering[cite: 6, 8]. I specialize in transforming raw datasets into actionable business intelligence[cite: 9].
+            <div class="md:col-span-8">
+                <h2 class="text-blue-600 font-bold tracking-[0.2em] uppercase text-xs mb-4">Master's @ UMKC 2026</h2>
+                <h1 class="serif text-5xl md:text-7xl text-slate-900 mb-8 leading-tight">Data <br><span class="italic text-blue-600">Engineer.</span></h1>
+                <p class="text-slate-500 text-xl md:text-2xl leading-relaxed max-w-2xl mb-10">
+                    Architecting scalable data ecosystems and secure infrastructures. Specialized in transforming complex datasets into powerful business intelligence.
                 </p>
-                <div class="flex flex-wrap gap-4 font-bold">
-                    <span class="text-slate-900 border-b-2 border-blue-600 pb-1">Master's @ UMKC 2026</span>
-                    <span class="text-slate-900 border-b-2 border-blue-600 pb-1">Ex-IBM Data Associate</span>
+                <div class="flex flex-wrap gap-8">
+                    <div class="flex items-center gap-3"><i class="fas fa-database text-blue-600"></i> <span class="font-bold">SQL Optimization</span></div>
+                    <div class="flex items-center gap-3"><i class="fas fa-cloud text-blue-600"></i> <span class="font-bold">Cloud Architecture</span></div>
+                    <div class="flex items-center gap-3"><i class="fas fa-shield-alt text-blue-600"></i> <span class="font-bold">Cryptography</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="experience" class="py-20 section-light px-6">
+    <section id="experience" class="py-32 bg-soft px-8">
         <div class="max-w-5xl mx-auto">
-            <h2 class="heading-font text-4xl mb-12 text-slate-900">Professional Journey</h2>
-            <div class="space-y-12">
-                <div class="bg-white p-8 rounded-2xl border border-slate-100">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-2xl font-bold text-slate-900">Information Services Lab Assistant</h3>
-                        <span class="text-blue-600 font-mono text-sm">2024 - PRESENT</span>
+            <h3 class="serif text-4xl mb-16">Professional Narrative</h3>
+            <div class="space-y-10">
+                <div class="card p-10 rounded-[2rem]">
+                    <div class="flex flex-col md:flex-row justify-between md:items-center mb-6">
+                        <h4 class="text-2xl font-bold text-slate-900">Information Services Lab Assistant</h4>
+                        <span class="text-blue-600 font-bold text-sm bg-blue-50 px-4 py-1 rounded-full mt-2 md:mt-0">2024 — PRESENT</span>
                     </div>
-                    <p class="text-slate-500 font-semibold mb-4 uppercase text-xs tracking-widest">UMKC | Kansas City, MO [cite: 12]</p>
-                    <ul class="text-slate-600 space-y-2">
-                        <li>• Maintaining 99.9% uptime for campus-wide network infrastructure[cite: 13].</li>
-                        <li>• Automating routine diagnostics using Python, reducing manual intervention by 20%[cite: 15].</li>
+                    <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest mb-4">University of Missouri-Kansas City</p>
+                    <ul class="text-slate-600 space-y-3 leading-relaxed">
+                        <li>• Sustaining 99.9% uptime for campus-wide network infrastructure and research labs.</li>
+                        <li>• Engineered Python automation scripts, decreasing manual diagnostics by 20%.</li>
                     </ul>
                 </div>
-                <div class="bg-white p-8 rounded-2xl border border-slate-100">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-2xl font-bold text-slate-900">Data Associate</h3>
-                        <span class="text-blue-600 font-mono text-sm">2023 - 2024</span>
+                <div class="card p-10 rounded-[2rem]">
+                    <div class="flex flex-col md:flex-row justify-between md:items-center mb-6">
+                        <h4 class="text-2xl font-bold text-slate-900">Data Associate</h4>
+                        <span class="text-slate-400 font-bold text-sm bg-slate-50 px-4 py-1 rounded-full mt-2 md:mt-0">2023 — 2024</span>
                     </div>
-                    <p class="text-slate-500 font-semibold mb-4 uppercase text-xs tracking-widest">IBM | Hyderabad, India [cite: 18]</p>
-                    <p class="text-slate-600 leading-relaxed">
-                        Architected scalable data modules with Java/SQL and optimized legacy schemas to enhance data retrieval speeds for reporting[cite: 19, 20].
+                    <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest mb-4">IBM | Hyderabad, India</p>
+                    <p class="text-slate-600 leading-relaxed italic">
+                        "Designed scalable data modules using Java and optimized complex SQL schemas to achieve high-speed data retrieval for executive reporting."
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="py-24 px-6 max-w-6xl mx-auto">
-        <h2 class="heading-font text-4xl text-center mb-16">Data & Cryptography Portfolio</h2>
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="project-card p-8 rounded-2xl bg-white">
-                <i class="fas fa-fingerprint text-blue-600 text-3xl mb-6"></i>
-                <h4 class="text-xl font-bold mb-3">Secure Digital Voting System</h4>
-                <p class="text-slate-600 text-sm mb-6 leading-relaxed">
-                    A cryptographic solution leveraging **Elliptic Curve Cryptography (ECC)** and **HMAC** for secure, anonymous digital balloting.
-                </p>
-                <div class="flex gap-2"><span class="badge">Applied Cryptography</span><span class="badge">Python</span></div>
+    <section id="projects" class="py-32 px-8 max-w-7xl mx-auto">
+        <h3 class="serif text-4xl mb-16 text-center">Core Engineering Projects</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="card p-8 rounded-3xl">
+                <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6"><i class="fas fa-fingerprint"></i></div>
+                <h5 class="font-bold mb-3 text-lg">Secure Digital Voting</h5>
+                <p class="text-slate-500 text-sm leading-relaxed mb-6">Advanced cryptographic system using ECC and HMAC for secure, anonymous balloting.</p>
+                <span class="text-[10px] font-bold uppercase text-blue-600 tracking-widest">Cryptography</span>
             </div>
-            <div class="project-card p-8 rounded-2xl bg-white">
-                <i class="fas fa-chart-line text-blue-600 text-3xl mb-6"></i>
-                <h4 class="text-xl font-bold mb-3">Predictive Consumer Analytics</h4>
-                <p class="text-slate-600 text-sm mb-6 leading-relaxed">
-                    Engineered data cleaning scripts in Python (Pandas/NumPy) to uncover latent trends and visualize KPIs via Matplotlib.
-                </p>
-                <div class="flex gap-2"><span class="badge">EDA</span><span class="badge">Data Integrity</span></div>
+            <div class="card p-8 rounded-3xl">
+                <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 mb-6"><i class="fas fa-chart-pie"></i></div>
+                <h5 class="font-bold mb-3 text-lg">Predictive Analytics</h5>
+                <p class="text-slate-500 text-sm leading-relaxed mb-6">Uncovered consumer trends using Python EDA to drive executive-level decision making at Accenture.</p>
+                <span class="text-[10px] font-bold uppercase text-indigo-600 tracking-widest">Data Analysis</span>
             </div>
-            <div class="project-card p-8 rounded-2xl bg-white">
-                <i class="fas fa-seedling text-blue-600 text-3xl mb-6"></i>
-                <h4 class="text-xl font-bold mb-3">Smart Plant Monitoring (IoT)</h4>
-                <p class="text-slate-600 text-sm mb-6 leading-relaxed">
-                    Real-time environmental sensor array with secure cloud-native data streaming and automated diagnostic reporting.
-                </p>
-                <div class="flex gap-2"><span class="badge">IoT</span><span class="badge">Automation</span></div>
+            <div class="card p-8 rounded-3xl">
+                <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 mb-6"><i class="fas fa-wifi"></i></div>
+                <h5 class="font-bold mb-3 text-lg">IoT Monitoring</h5>
+                <p class="text-slate-500 text-sm leading-relaxed mb-6">Real-time sensor array with cloud-native data streaming and automated health reporting.</p>
+                <span class="text-[10px] font-bold uppercase text-emerald-600 tracking-widest">IoT / Cloud</span>
             </div>
-            <div class="project-card p-8 rounded-2xl bg-white">
-                <i class="fas fa-database text-blue-600 text-3xl mb-6"></i>
-                <h4 class="text-xl font-bold mb-3">High-Concurrency Data Modules</h4>
-                <p class="text-slate-600 text-sm mb-6 leading-relaxed">
-                    Developed scalable data modules with Java to address high-concurrency challenges and enhance system performance.
-                </p>
-                <div class="flex gap-2"><span class="badge">Java</span><span class="badge">SQL Optimization</span></div>
+            <div class="card p-8 rounded-3xl">
+                <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-600 mb-6"><i class="fas fa-database"></i></div>
+                <h5 class="font-bold mb-3 text-lg">Data Modules</h5>
+                <p class="text-slate-500 text-sm leading-relaxed mb-6">High-concurrency data modules built at IBM to enhance enterprise system performance.</p>
+                <span class="text-[10px] font-bold uppercase text-slate-600 tracking-widest">Java / SQL</span>
             </div>
         </div>
     </section>
 
-    <section id="credentials" class="py-20 section-light px-6">
+    <section id="education" class="py-32 bg-soft px-8">
         <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-16">
             <div>
-                <h3 class="heading-font text-3xl mb-6">My Passion</h3>
-                <p class="text-slate-600 leading-relaxed">
-                    Beyond coding, I am passionate about the intersection of **Privacy and Technology**. My research at **UMKC** focuses on how applied cryptography can protect individual rights in a data-driven world[cite: 6, 8]. I am committed to continuous growth and technological innovation[cite: 9].
-                </p>
+                <h3 class="serif text-4xl mb-12">Education</h3>
+                <div class="space-y-10 border-l-2 border-slate-100 pl-8">
+                    <div class="relative"><div class="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-blue-600 border-4 border-white shadow-sm"></div>
+                        <h4 class="font-bold text-xl">MS in Computer Science</h4>
+                        <p class="text-slate-500">University of Missouri-Kansas City</p>
+                        <p class="text-blue-600 text-xs font-bold mt-1 uppercase tracking-widest">Expected 2026</p>
+                    </div>
+                    <div class="relative"><div class="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-slate-200 border-4 border-white shadow-sm"></div>
+                        <h4 class="font-bold text-xl uppercase">B.Tech in Computer Science</h4>
+                        <p class="text-slate-500">Gitam University</p>
+                        <p class="text-slate-400 text-xs font-bold mt-1 uppercase tracking-widest">2019 — 2023</p>
+                    </div>
+                </div>
             </div>
             <div>
-                <h3 class="heading-font text-3xl mb-6">Certifications</h3>
-                <ul class="space-y-4">
-                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-blue-600"></i> **Snowflake** Data Warehousing (2026) [cite: 37]</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-blue-600"></i> **Oracle OCI** Foundations Associate (2025) [cite: 38]</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-blue-600"></i> **IBM** Python for Data Science & AI [cite: 38]</li>
-                </ul>
+                <h3 class="serif text-4xl mb-12">Certifications</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-50">
+                        <i class="fas fa-certificate text-blue-600"></i>
+                        <span class="font-bold text-slate-700">Snowflake Data Warehousing (2026)</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-50">
+                        <i class="fas fa-certificate text-blue-600"></i>
+                        <span class="font-bold text-slate-700">Oracle OCI Foundations (2025)</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-50">
+                        <i class="fas fa-certificate text-blue-600"></i>
+                        <span class="font-bold text-slate-700">IBM Python for Data Science & AI</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-12 border-t border-slate-100 text-center">
-        <div class="flex justify-center space-x-8 mb-6">
-            <a href="https://www.linkedin.com/in/satish-addala-26a05320b" class="text-slate-400 hover:text-blue-600 transition"><i class="fab fa-linkedin text-2xl"></i></a>
-            <a href="mailto:satish.addala1144@gmail.com" class="text-slate-400 hover:text-blue-600 transition"><i class="fas fa-envelope text-2xl"></i></a>
-            <a href="tel:+18167154265" class="text-slate-400 hover:text-blue-600 transition"><i class="fas fa-phone text-2xl"></i></a>
+    <footer class="py-20 text-center px-8 border-t border-slate-50">
+        <h2 class="serif text-4xl mb-12 italic">Let's Connect.</h2>
+        <div class="flex justify-center space-x-12 mb-16">
+            <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="text-slate-400 hover:text-blue-600 transition-all text-2xl"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:satish.addala1144@gmail.com" class="text-slate-400 hover:text-blue-600 transition-all text-2xl"><i class="fas fa-envelope"></i></a>
+            <a href="tel:+18167154265" class="text-slate-400 hover:text-blue-600 transition-all text-2xl"><i class="fas fa-phone"></i></a>
         </div>
-        <p class="text-slate-400 text-xs font-semibold uppercase tracking-widest">© 2026 Satish Addala | Kansas City, MO</p>
+        <p class="text-[10px] font-bold text-slate-300 uppercase tracking-[0.5em]">Data Engineering Portfolio © 2026 Satish Addala</p>
     </footer>
 
 </body>
