@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Satish Addala | Software & Data Engineer</title>
-    <meta name="title" content="Satish Addala | Software & Data Engineer">
-    <meta name="description" content="Master's Candidate at UMKC specializing in Data Engineering, Applied Cryptography, and scalable infrastructure. Ex-IBM and Accenture.">
-    
+    <meta name="description" content="Master's Candidate at UMKC specializing in high-concurrency systems, data architecture, and applied cryptography.">
+    <meta property="og:title" content="Satish Addala | Software & Data Engineer">
+    <meta property="og:description" content="Bridging the gap between scalable data architecture and robust application development. View my technical portfolio and projects.">
+    <meta property="og:image" content="IMG_2443.png">
+    <meta property="og:url" content="https://satishaddala.online">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://satishaddala.online/">
-    <meta property="og:title" content="Satish Addala | Data Engineer Portfolio">
-    <meta property="og:description" content="Explore my projects in Data Engineering, IoT, and Cryptography.">
-    <meta property="og:image" content="https://satishaddala.online/IMG_2443.png"> 
-    
-    <link rel="icon" type="image/png" href="IMG_2443.png">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -25,6 +23,7 @@
         body { font-family: 'Outfit', sans-serif; background-color: var(--bg-dark); color: #e2e8f0; overflow-x: hidden; }
         .mono { font-family: 'JetBrains Mono', monospace; }
         
+        /* Glass & Glow Effects */
         .glass-card { background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s ease; }
         .glass-card:hover { transform: translateY(-5px); border-color: rgba(0, 230, 204, 0.4); box-shadow: 0 10px 30px -10px rgba(0, 230, 204, 0.15); }
         
@@ -32,8 +31,10 @@
         .accent-border { position: relative; }
         .accent-border::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px; background: var(--accent); border-radius: 4px 0 0 4px; }
         
+        /* Custom Image Crop */
         .profile-img { width: 260px; height: 260px; object-fit: cover; object-position: top; border-radius: 2rem; border: 2px solid rgba(255,255,255,0.1); }
         
+        /* Skill Tags */
         .skill-badge { background: rgba(0, 230, 204, 0.1); color: var(--accent); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(0, 230, 204, 0.2); }
         .project-tag { background: rgba(255,255,255,0.05); color: #cbd5e1; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
     </style>
@@ -46,7 +47,10 @@
             <a href="#skills" class="hover:text-teal-400 transition-colors">Skills</a>
             <a href="#projects" class="hover:text-teal-400 transition-colors">Projects</a>
             <a href="#experience" class="hover:text-teal-400 transition-colors">Experience</a>
-            <a href="SA_RESUME1144.pdf" download class="text-teal-400 border border-teal-400/30 px-5 py-2 rounded-full hover:bg-teal-400 hover:text-[#0a0f1c] transition-all flex items-center gap-2"><i class="fas fa-download"></i> Resume</a>
+            
+            <a href="SA_RESUME1144.pdf" download="Satish_Addala_Resume.pdf" class="text-teal-400 border border-teal-400/30 px-5 py-2 rounded-full hover:bg-teal-400 hover:text-[#0a0f1c] transition-all flex items-center gap-2">
+                <i class="fas fa-file-download"></i> Get Resume
+            </a>
         </div>
     </nav>
 
@@ -57,10 +61,9 @@
             <p class="text-slate-400 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl">
                 Bridging the gap between scalable data architecture and robust application development. Proven expertise in optimizing high-concurrency systems and engineering applied cryptographic solutions.
             </p>
-            <div class="flex flex-wrap gap-4">
+            <div class="flex gap-4">
                 <a href="#projects" class="bg-teal-500 text-[#0a0f1c] px-8 py-3 rounded-lg font-bold hover:bg-teal-400 transition-colors shadow-lg shadow-teal-500/20">View Projects</a>
                 <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="border border-white/10 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition-colors flex items-center gap-2"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                <a href="SA_RESUME1144.pdf" download class="border border-teal-500/50 text-teal-400 px-8 py-3 rounded-lg font-bold hover:bg-teal-500/10 transition-colors flex items-center gap-2 md:hidden"><i class="fas fa-file-pdf"></i> Resume</a>
             </div>
         </div>
         <div class="flex-shrink-0">
@@ -69,11 +72,8 @@
     </header>
 
     <section id="skills" class="py-20 px-6 max-w-7xl mx-auto border-t border-white/5">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-            <h2 class="text-3xl font-bold text-white flex items-center gap-4"><i class="fas fa-code text-teal-400"></i> Technical Arsenal</h2>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <h2 class="text-3xl font-bold text-white mb-12 flex items-center gap-4"><i class="fas fa-code text-teal-400"></i> Technical Arsenal</h2>
+        <div class="grid md:grid-cols-3 gap-8">
             <div class="glass-card p-8 accent-border">
                 <h3 class="text-xl font-bold text-white mb-6">Languages & Frameworks</h3>
                 <div class="flex flex-wrap gap-3">
@@ -106,16 +106,9 @@
                 </div>
             </div>
         </div>
-
-        <div class="glass-card p-8 accent-border flex justify-center">
-            <div class="w-full max-w-3xl">
-                <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2"><i class="fab fa-github"></i> Live Development Activity</h3>
-                <img src="https://github-readme-stats.vercel.app/api?username=satishaddala11&theme=react&hide_border=true&bg_color=0a0f1c&title_color=00e6cc&icon_color=00e6cc&text_color=cbd5e1" alt="Satish Addala GitHub Stats" class="w-full rounded-lg">
-            </div>
-        </div>
     </section>
 
-    <section id="projects" class="py-20 px-6 max-w-7xl mx-auto border-t border-white/5">
+    <section id="projects" class="py-20 px-6 max-w-7xl mx-auto">
         <h2 class="text-3xl font-bold text-white mb-12 flex items-center gap-4"><i class="fas fa-folder-open text-teal-400"></i> Featured Architecture</h2>
         <div class="grid md:grid-cols-2 gap-8">
             
@@ -150,7 +143,11 @@
                 <div>
                     <div class="w-14 h-14 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-400 text-2xl mb-6"><i class="fas fa-shield-alt"></i></div>
                     <h3 class="text-2xl font-bold text-white mb-4">Applied Cryptography Suite</h3>
-                    <p class="text-slate-400 leading-relaxed mb-6">Designed secure authentication and encryption workflows utilizing Data Encryption Standard (DES), Advanced Encryption Standard (AES), HMAC authentication, and Elliptic Curve Cryptography (ECC).</p>
+                    <p class="text-slate-400 leading-relaxed mb-4">Designed secure authentication and encryption workflows utilizing Data Encryption Standard (DES), Advanced Encryption Standard (AES), HMAC authentication, and Elliptic Curve Cryptography (ECC).</p>
+                    
+                    <a href="https://github.com/satishaddala11" target="_blank" class="text-teal-400 text-sm font-bold hover:text-white transition-colors flex items-center gap-2 mb-6">
+                        <i class="fas fa-external-link-alt"></i> Read Architecture Deep-Dive
+                    </a>
                 </div>
                 <div class="flex flex-wrap gap-2 mt-4">
                     <span class="project-tag">ECC & AES</span>
@@ -172,6 +169,14 @@
                 </div>
             </div>
 
+        </div>
+    </section>
+
+    <section class="py-12 px-6 max-w-7xl mx-auto border-t border-white/5">
+        <h2 class="text-3xl font-bold text-white mb-10 flex items-center gap-4"><i class="fab fa-github text-teal-400"></i> Continuous Deployment</h2>
+        <div class="glass-card p-8 flex flex-col md:flex-row justify-center items-center gap-8">
+            <img src="https://github-readme-stats.vercel.app/api?username=satishaddala11&show_icons=true&theme=radical&bg_color=0a0f1c&hide_border=true&title_color=00e6cc&text_color=e2e8f0" alt="GitHub Stats" class="max-w-full">
+            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=satishaddala11&layout=compact&theme=radical&bg_color=0a0f1c&hide_border=true&title_color=00e6cc&text_color=e2e8f0" alt="Top Languages" class="max-w-full">
         </div>
     </section>
 
@@ -243,8 +248,10 @@
         <h2 class="text-2xl font-bold text-white mb-8">Ready to collaborate?</h2>
         <div class="flex justify-center space-x-8 mb-8">
             <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-teal-400 hover:bg-white/10 transition-all"><i class="fab fa-linkedin-in text-xl"></i></a>
+            
+            <a href="SA_RESUME1144.pdf" download="Satish_Addala_Resume.pdf" class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-teal-400 hover:bg-white/10 transition-all"><i class="fas fa-file-pdf text-xl"></i></a>
+            
             <a href="mailto:satish.addala1144@gmail.com" class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-teal-400 hover:bg-white/10 transition-all"><i class="fas fa-envelope text-xl"></i></a>
-            <a href="tel:+18167154265" class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-teal-400 hover:bg-white/10 transition-all"><i class="fas fa-phone text-xl"></i></a>
         </div>
         <p class="text-slate-600 text-xs uppercase tracking-widest mono">© 2026 Satish Addala. All Rights Reserved.</p>
     </footer>
