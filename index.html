@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" href="IMG_2443.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -23,88 +23,89 @@
             --bg-deep: #030407; 
         }
         
-        body, a, button { cursor: none !important; }
-
         body { 
             font-family: 'Space Grotesk', sans-serif; 
-            background-color: var(--bg-deep); color: #ffffff; 
-            overflow-x: hidden; scroll-behavior: smooth;
+            background-color: var(--bg-deep); 
+            color: #ffffff; 
+            overflow-x: hidden; 
+            scroll-behavior: smooth;
         }
         
         .font-sync { font-family: 'Syncopate', sans-serif; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
         
-        /* Preloader */
-        #preloader {
-            position: fixed; inset: 0; z-index: 99999; background: var(--bg-deep);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.5s ease;
+        /* 3D WebGL Container - The Quantum Terrain */
+        #webgl-canvas { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            z-index: -1; 
+            pointer-events: none;
         }
-        .loader-text { font-family: 'Syncopate', sans-serif; color: var(--neon-cyan); font-size: 0.8rem; letter-spacing: 0.3em; animation: pulseFlash 1.5s infinite; }
-        .progress-bar { width: 200px; height: 2px; background: rgba(255,255,255,0.1); margin-top: 20px; position: relative; overflow: hidden; }
-        .progress-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--neon-cyan); animation: loadBar 1.5s cubic-bezier(0.8, 0, 0.2, 1) forwards; }
         
-        @keyframes pulseFlash { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        @keyframes loadBar { 0% { width: 0%; } 100% { width: 100%; } }
-
-        /* Custom Cursor */
-        #custom-cursor {
-            position: fixed; top: 0; left: 0; width: 12px; height: 12px;
-            background: var(--neon-cyan); border-radius: 50%;
-            pointer-events: none; z-index: 100000;
-            transform: translate(-50%, -50%); box-shadow: 0 0 15px var(--neon-cyan);
-            transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
-            mix-blend-mode: screen;
-        }
-        #custom-cursor.cursor-hover { width: 40px; height: 40px; background: rgba(0, 229, 255, 0.1); border: 1px solid var(--neon-cyan); }
-
-        /* Live Telemetry Widget */
-        #telemetry {
-            position: fixed; bottom: 20px; left: 20px; z-index: 50;
-            pointer-events: none; opacity: 0.7;
-        }
-        .telemetry-line { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--neon-cyan); text-shadow: 0 0 5px rgba(0,229,255,0.5); margin-bottom: 2px; }
-
-        /* Terminal Easter Egg */
-        #terminal-overlay {
-            position: fixed; inset: 0; z-index: 90000; background: #000;
-            padding: 40px; font-family: 'JetBrains Mono', monospace; color: #0f0;
-            display: none; overflow-y: auto; flex-direction: column;
-        }
-        #terminal-overlay.active { display: flex; }
-        .term-input-line { display: flex; align-items: center; margin-top: 10px; }
-        .term-prompt { color: #00e5ff; margin-right: 10px; }
-        #term-input { background: transparent; border: none; color: #0f0; font-family: 'JetBrains Mono', monospace; flex-grow: 1; outline: none; font-size: 1rem; }
-
-        /* 3D WebGL Canvas */
-        #webgl-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
-        
-        /* Glass Panels */
+        /* Premium Glass Panels */
         .glass-card { 
-            background: rgba(10, 12, 18, 0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(0, 229, 255, 0.15); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-            border-radius: 20px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); transform-style: preserve-3d;
+            background: rgba(10, 12, 18, 0.6); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 229, 255, 0.15); 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-style: preserve-3d;
         }
-        .glass-card:hover { border-color: rgba(0, 229, 255, 0.5); box-shadow: 0 20px 50px rgba(0, 229, 255, 0.15); transform: translateY(-5px); }
+        .glass-card:hover {
+            border-color: rgba(0, 229, 255, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 229, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        /* 3D Depth Elements inside Cards */
         .depth-1 { transform: translateZ(30px); }
         .depth-2 { transform: translateZ(60px); }
 
-        /* Gradients & Glows */
-        .text-gradient { background: linear-gradient(to right, var(--neon-cyan), var(--neon-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .text-glow { text-shadow: 0 0 15px rgba(0, 229, 255, 0.5); }
-        .magnetic { transition: transform 0.1s ease; display: inline-flex; }
-
-        /* Original Image Frame */
-        .passport-frame {
-            width: 280px; height: 360px; border-radius: 24px; border: 2px solid rgba(0, 229, 255, 0.4);
-            box-shadow: 0 0 40px rgba(0, 229, 255, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.5);
-            overflow: hidden; background: #000; position: relative;
+        /* Accent Text & Gradients */
+        .text-gradient {
+            background: linear-gradient(to right, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .passport-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; filter: brightness(1.08) contrast(1.05); }
+        .text-glow { text-shadow: 0 0 15px rgba(0, 229, 255, 0.5); }
+        
+        /* PASSPORT IMAGE CROP */
+        .passport-frame {
+            width: 280px; 
+            height: 360px; /* Classic passport aspect ratio */
+            border-radius: 24px;
+            border: 2px solid rgba(0, 229, 255, 0.4);
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            background: #000;
+            position: relative;
+        }
+        .passport-frame::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            box-shadow: inset 0 0 20px rgba(0,229,255,0.2);
+            pointer-events: none;
+        }
+        .passport-frame img {
+            width: 100%; 
+            height: 100%;
+            object-fit: cover; 
+            object-position: top;
+            /* Brightness boosted to ensure the photo is not dull */
+            filter: brightness(1.08) contrast(1.05); 
+        }
 
+        /* Fade-Up Scroll Reveal */
         .fade-up { opacity: 0; transform: translateY(50px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .fade-up.active { opacity: 1; transform: translateY(0); }
 
+        /* Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-deep); }
         ::-webkit-scrollbar-thumb { background: rgba(0, 229, 255, 0.3); border-radius: 10px; }
@@ -113,52 +114,24 @@
 </head>
 <body class="selection:bg-[#00e5ff] selection:text-black">
 
-    <div id="preloader">
-        <div class="loader-text">INITIALIZING QUANTUM TERRAIN...</div>
-        <div class="progress-bar"><div class="progress-fill"></div></div>
-    </div>
-
-    <div id="custom-cursor"></div>
-
-    <div id="telemetry">
-        <div class="telemetry-line">> SYS_TRACKING: ACTIVE</div>
-        <div class="telemetry-line">> LOC: KANSAS CITY, MO</div>
-        <div class="telemetry-line" id="tel-time">> TIME: --:--:--</div>
-        <div class="telemetry-line" id="tel-pos">> POS: [X:0, Y:0, Z:0]</div>
-    </div>
-
-    <div id="terminal-overlay">
-        <div id="term-output">
-            <div>S.A.T.I.S.H. OS v2.0.26</div>
-            <div>Authentication accepted. Welcome, Guest.</div>
-            <div>Type 'help' for a list of commands. Type 'exit' to return to GUI.</div>
-        </div>
-        <div class="term-input-line">
-            <span class="term-prompt">guest@satish:~$</span>
-            <input type="text" id="term-input" autocomplete="off" spellcheck="false" autofocus>
-        </div>
-    </div>
-
     <canvas id="webgl-canvas"></canvas>
 
-    <nav class="fixed top-0 w-full z-40 py-5 px-6 md:px-12 flex justify-between items-center transition-all duration-300" style="background: linear-gradient(to bottom, rgba(3,4,7,0.9), transparent);">
+    <nav class="fixed top-0 w-full z-50 py-5 px-6 md:px-12 flex justify-between items-center transition-all duration-300" style="background: linear-gradient(to bottom, rgba(3,4,7,0.9), transparent);">
         <div class="font-sync font-bold text-2xl tracking-widest text-white">SATISH <span class="text-[#00e5ff]">ADDALA</span></div>
         <div class="hidden md:flex space-x-8 text-xs font-bold tracking-[0.15em] uppercase items-center text-gray-300">
-            <button id="term-btn" class="magnetic hover:text-[#00e5ff] transition-colors" title="Open Terminal">
-                <i class="fas fa-terminal text-lg pointer-events-none"></i>
-            </button>
-            <a href="#projects" class="hover:text-[#00e5ff] transition-colors magnetic-wrap">Projects</a>
-            <a href="#experience" class="hover:text-[#00e5ff] transition-colors magnetic-wrap">Experience</a>
-            <a href="#education" class="hover:text-[#00e5ff] transition-colors magnetic-wrap">Education</a>
-            <a href="#skills" class="hover:text-[#00e5ff] transition-colors magnetic-wrap">Skills</a>
-            <a href="SA_RESUME1144.pdf" target="_blank" class="magnetic px-6 py-2.5 rounded-full bg-black/50 backdrop-blur-md text-[#00e5ff] border border-[#00e5ff]/40 hover:bg-[#00e5ff] hover:text-black transition-colors flex items-center gap-2 shadow-[0_0_15px_rgba(0,229,255,0.2)]">
-                <i class="fas fa-file-pdf pointer-events-none"></i> <span class="pointer-events-none">View Resume</span>
+            <a href="#projects" class="hover:text-[#00e5ff] transition-colors">Projects</a>
+            <a href="#experience" class="hover:text-[#00e5ff] transition-colors">Experience</a>
+            <a href="#education" class="hover:text-[#00e5ff] transition-colors">Education</a>
+            <a href="#skills" class="hover:text-[#00e5ff] transition-colors">Skills</a>
+            <a href="SA_RESUME1144.pdf" target="_blank" class="px-6 py-2.5 rounded-full bg-black/50 backdrop-blur-md text-[#00e5ff] border border-[#00e5ff]/40 hover:bg-[#00e5ff] hover:text-black transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(0,229,255,0.2)]">
+                <i class="fas fa-file-pdf"></i> View Resume
             </a>
         </div>
     </nav>
 
     <section class="min-h-screen flex items-center justify-center pt-24 px-6 max-w-7xl mx-auto">
         <div class="grid lg:grid-cols-2 gap-16 items-center w-full">
+            
             <div class="z-10 fade-up active">
                 <p class="font-sync text-[#00e5ff] text-xs mb-6 tracking-[0.3em] uppercase text-glow">Master's Candidate @ UMKC</p>
                 <h1 class="font-sync text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.1] mb-6">
@@ -169,16 +142,17 @@
                     I am a performance-driven engineer specializing in <strong class="text-white">Scalable Data Architecture</strong>, <strong class="text-white">High-Concurrency Processing</strong>, and <strong class="text-white">Applied Cryptography</strong>. Proven capability to transform raw datasets into high-fidelity business intelligence.
                 </p>
                 <div class="flex flex-wrap gap-6">
-                    <a href="mailto:satish.addala1144@gmail.com" class="magnetic px-8 py-4 bg-[#00e5ff] text-black rounded-xl hover:bg-white transition-colors font-sync font-bold tracking-widest uppercase text-xs flex items-center gap-2 shadow-[0_0_20px_rgba(0,229,255,0.4)]">
-                        <i class="fas fa-paper-plane pointer-events-none"></i> <span class="pointer-events-none">Reach Out</span>
+                    <a href="mailto:satish.addala1144@gmail.com" class="px-8 py-4 bg-[#00e5ff] text-black rounded-xl hover:bg-white transition-all font-sync font-bold tracking-widest uppercase text-xs flex items-center gap-2 shadow-[0_0_20px_rgba(0,229,255,0.4)]">
+                        <i class="fas fa-paper-plane"></i> Reach Out
                     </a>
-                    <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="magnetic w-14 h-14 flex items-center justify-center bg-white/5 backdrop-blur-md border border-white/20 rounded-xl hover:border-[#00e5ff] transition-colors text-xl text-white hover:text-[#00e5ff]">
-                        <i class="fab fa-linkedin-in pointer-events-none"></i>
+                    <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="w-14 h-14 flex items-center justify-center bg-white/5 backdrop-blur-md border border-white/20 rounded-xl hover:border-[#00e5ff] transition-all text-xl text-white hover:text-[#00e5ff]">
+                        <i class="fab fa-linkedin-in"></i>
                     </a>
                 </div>
             </div>
+
             <div class="flex justify-center lg:justify-end z-10 fade-up active" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-perspective="1000">
-                <div class="glass-card p-4 rounded-[28px] sound-trigger">
+                <div class="glass-card p-4 rounded-[28px]">
                     <div class="passport-frame depth-2">
                         <img src="IMG_2443.png" alt="Satish Addala">
                     </div>
@@ -188,14 +162,17 @@
     </section>
 
     <section id="projects" class="py-32 px-6 max-w-7xl mx-auto z-10 relative">
-        <h2 class="font-sync text-4xl md:text-5xl font-bold text-center mb-24 tracking-widest fade-up text-white">Projects</h2>
+        <h2 class="font-sync text-4xl md:text-5xl font-bold text-center mb-24 tracking-widest fade-up text-white"><span class="text-[#00e5ff] text-glow">01.</span> Projects</h2>
+        
         <div class="grid lg:grid-cols-2 gap-10">
-            <div class="glass-card p-10 fade-up sound-trigger" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
-                <div class="depth-1 flex flex-col h-full justify-between">
-                    <div>
-                        <div class="w-16 h-16 bg-[#00e5ff]/10 rounded-2xl flex items-center justify-center text-[#00e5ff] text-3xl mb-8 depth-2 border border-[#00e5ff]/20"><i class="fas fa-share-nodes"></i></div>
-                        <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">Federated Machine Learning</h3>
-                        <p class="text-gray-300 font-light leading-relaxed mb-8">Architected a privacy-preserving distributed machine learning framework where models train locally on edge devices. Successfully aggregated model weights securely without exposing raw user data, ensuring absolute privacy while maintaining optimal predictive accuracy.</p>
+            <div class="glass-card p-10 fade-up" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
+                <div class="depth-1">
+                    <div class="w-16 h-16 bg-[#00e5ff]/10 rounded-2xl flex items-center justify-center text-[#00e5ff] text-3xl mb-8 depth-2 border border-[#00e5ff]/20"><i class="fas fa-share-nodes"></i></div>
+                    <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">Federated Machine Learning</h3>
+                    <div class="text-gray-300 font-light leading-relaxed mb-8 space-y-3">
+                        <p><strong class="text-white">Theme:</strong> Privacy-Preserving AI.</p>
+                        <p><strong class="text-white">What I did:</strong> Built a distributed system where machine learning models train locally on edge devices rather than centralized servers.</p>
+                        <p><strong class="text-white">Output:</strong> Successfully aggregated model weights securely without ever exposing or moving the raw user data, ensuring high privacy while maintaining model accuracy.</p>
                     </div>
                     <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#00e5ff] uppercase tracking-widest">
                         <span class="px-3 py-1 bg-[#00e5ff]/10 border border-[#00e5ff]/30 rounded-md">Data Science</span>
@@ -204,12 +181,14 @@
                 </div>
             </div>
 
-            <div class="glass-card p-10 fade-up sound-trigger" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
-                <div class="depth-1 flex flex-col h-full justify-between">
-                    <div>
-                        <div class="w-16 h-16 bg-[#9d4edd]/10 rounded-2xl flex items-center justify-center text-[#9d4edd] text-3xl mb-8 depth-2 border border-[#9d4edd]/20"><i class="fas fa-database"></i></div>
-                        <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">Scalable Data Modules</h3>
-                        <p class="text-gray-300 font-light leading-relaxed mb-8">Analyzed and resolved severe bottlenecks in high-traffic, legacy Java and SQL enterprise applications. Completely redesigned database schemas and queries, clearing system logjams and drastically accelerating the retrieval velocity of critical corporate reports.</p>
+            <div class="glass-card p-10 fade-up" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
+                <div class="depth-1">
+                    <div class="w-16 h-16 bg-[#9d4edd]/10 rounded-2xl flex items-center justify-center text-[#9d4edd] text-3xl mb-8 depth-2 border border-[#9d4edd]/20"><i class="fas fa-database"></i></div>
+                    <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">Scalable Data Modules</h3>
+                    <div class="text-gray-300 font-light leading-relaxed mb-8 space-y-3">
+                        <p><strong class="text-white">Theme:</strong> Enterprise Data Optimization.</p>
+                        <p><strong class="text-white">What I did:</strong> Analyzed and identified severe bottlenecks in high-traffic, legacy Java and SQL applications.</p>
+                        <p><strong class="text-white">Output:</strong> Completely redesigned the database schemas and queries, which cleared system logjams and drastically sped up the generation and retrieval of critical corporate reports.</p>
                     </div>
                     <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#9d4edd] uppercase tracking-widest">
                         <span class="px-3 py-1 bg-[#9d4edd]/10 border border-[#9d4edd]/30 rounded-md">Java / SQL</span>
@@ -218,12 +197,14 @@
                 </div>
             </div>
 
-            <div class="glass-card p-10 fade-up sound-trigger" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
-                <div class="depth-1 flex flex-col h-full justify-between">
-                    <div>
-                        <div class="w-16 h-16 bg-[#9d4edd]/10 rounded-2xl flex items-center justify-center text-[#9d4edd] text-3xl mb-8 depth-2 border border-[#9d4edd]/20"><i class="fas fa-microchip"></i></div>
-                        <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">IoT Data Ingestion Pipeline</h3>
-                        <p class="text-gray-300 font-light leading-relaxed mb-8">Engineered a real-time environmental monitoring system by connecting remote hardware sensor arrays to a custom-built, secure cloud backend. Delivered a highly reliable data pipeline that continuously streams, processes, and displays high-frequency data without dropping packets under heavy load.</p>
+            <div class="glass-card p-10 fade-up" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
+                <div class="depth-1">
+                    <div class="w-16 h-16 bg-[#9d4edd]/10 rounded-2xl flex items-center justify-center text-[#9d4edd] text-3xl mb-8 depth-2 border border-[#9d4edd]/20"><i class="fas fa-microchip"></i></div>
+                    <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">IoT Data Ingestion Pipeline</h3>
+                    <div class="text-gray-300 font-light leading-relaxed mb-8 space-y-3">
+                        <p><strong class="text-white">Theme:</strong> Real-time Environmental Monitoring.</p>
+                        <p><strong class="text-white">What I did:</strong> Connected remote hardware sensor arrays to a custom-built, secure cloud backend.</p>
+                        <p><strong class="text-white">Output:</strong> Delivered a highly reliable data pipeline that continuously streams, processes, and displays high-frequency environmental data without crashing or dropping packets under heavy load.</p>
                     </div>
                     <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#9d4edd] uppercase tracking-widest">
                         <span class="px-3 py-1 bg-[#9d4edd]/10 border border-[#9d4edd]/30 rounded-md">Data Streams</span>
@@ -232,12 +213,14 @@
                 </div>
             </div>
             
-            <div class="glass-card p-10 fade-up sound-trigger" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
-                <div class="depth-1 flex flex-col h-full justify-between">
-                    <div>
-                        <div class="w-16 h-16 bg-[#00e5ff]/10 rounded-2xl flex items-center justify-center text-[#00e5ff] text-3xl mb-8 depth-2 border border-[#00e5ff]/20"><i class="fas fa-chart-line"></i></div>
-                        <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">Predictive Analytics</h3>
-                        <p class="text-gray-300 font-light leading-relaxed mb-8">Processed large, unstructured datasets using automated Python scripts (Pandas/NumPy) to uncover hidden consumer buying patterns. Built interactive Tableau dashboards that translate complex analytics into clear, actionable visual metrics for executive-level strategic decisions.</p>
+            <div class="glass-card p-10 fade-up" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
+                <div class="depth-1">
+                    <div class="w-16 h-16 bg-[#00e5ff]/10 rounded-2xl flex items-center justify-center text-[#00e5ff] text-3xl mb-8 depth-2 border border-[#00e5ff]/20"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">Predictive Analytics</h3>
+                    <div class="text-gray-300 font-light leading-relaxed mb-8 space-y-3">
+                        <p><strong class="text-white">Theme:</strong> Business Intelligence & Strategy.</p>
+                        <p><strong class="text-white">What I did:</strong> Took messy, unstructured datasets and wrote automated Python scripts (Pandas/NumPy) to clean and analyze the information.</p>
+                        <p><strong class="text-white">Output:</strong> Discovered hidden consumer buying patterns and built interactive Tableau dashboards, giving executives clear visual metrics to make data-driven decisions.</p>
                     </div>
                     <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#00e5ff] uppercase tracking-widest">
                         <span class="px-3 py-1 bg-[#00e5ff]/10 border border-[#00e5ff]/30 rounded-md">EDA / Python</span>
@@ -249,9 +232,10 @@
     </section>
 
     <section id="experience" class="py-32 px-6 max-w-5xl mx-auto z-10 relative">
-        <h2 class="font-sync text-4xl md:text-5xl font-bold text-center mb-24 tracking-widest fade-up text-white">Experience</h2>
+        <h2 class="font-sync text-4xl md:text-5xl font-bold text-center mb-24 tracking-widest fade-up text-white"><span class="text-[#9d4edd]">02.</span> Experience</h2>
+        
         <div class="space-y-10">
-            <div class="glass-card p-8 md:p-10 fade-up relative sound-trigger" data-tilt data-tilt-max="2" data-tilt-perspective="2000">
+            <div class="glass-card p-8 md:p-10 fade-up relative" data-tilt data-tilt-max="2" data-tilt-perspective="2000">
                 <div class="depth-1">
                     <div class="absolute -left-[1px] top-1/2 w-1 h-16 bg-[#00e5ff] rounded-r-md -translate-y-1/2 shadow-[0_0_15px_#00e5ff]"></div>
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
@@ -263,7 +247,7 @@
                 </div>
             </div>
 
-            <div class="glass-card p-8 md:p-10 fade-up relative sound-trigger" data-tilt data-tilt-max="2" data-tilt-perspective="2000">
+            <div class="glass-card p-8 md:p-10 fade-up relative" data-tilt data-tilt-max="2" data-tilt-perspective="2000">
                 <div class="depth-1">
                     <div class="absolute -left-[1px] top-1/2 w-1 h-16 bg-[#9d4edd] rounded-r-md -translate-y-1/2 shadow-[0_0_15px_#9d4edd]"></div>
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
@@ -275,7 +259,7 @@
                 </div>
             </div>
 
-            <div class="glass-card p-8 md:p-10 fade-up relative sound-trigger" data-tilt data-tilt-max="2" data-tilt-perspective="2000">
+            <div class="glass-card p-8 md:p-10 fade-up relative" data-tilt data-tilt-max="2" data-tilt-perspective="2000">
                 <div class="depth-1">
                     <div class="absolute -left-[1px] top-1/2 w-1 h-16 bg-gray-400 rounded-r-md -translate-y-1/2"></div>
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
@@ -290,11 +274,13 @@
     </section>
 
     <section id="education" class="py-32 px-6 max-w-7xl mx-auto z-10 relative">
-        <h2 class="font-sync text-4xl md:text-5xl font-bold text-center mb-24 tracking-widest fade-up text-white">Education</h2>
+        <h2 class="font-sync text-4xl md:text-5xl font-bold text-center mb-24 tracking-widest fade-up text-white"><span class="text-[#00e5ff] text-glow">03.</span> Education</h2>
+        
         <div class="grid md:grid-cols-2 gap-10">
-            <div class="glass-card p-10 fade-up sound-trigger" data-tilt data-tilt-max="4" data-tilt-perspective="1000">
+            <div class="glass-card p-10 fade-up" data-tilt data-tilt-max="4" data-tilt-perspective="1000">
                 <div class="depth-1">
                     <h3 class="font-sync text-2xl text-white mb-10 border-b border-white/10 pb-4 tracking-widest uppercase"><i class="fas fa-graduation-cap text-[#00e5ff] mr-3"></i> Degrees</h3>
+                    
                     <div class="mb-10">
                         <div class="flex justify-between items-start mb-3">
                             <div>
@@ -305,6 +291,7 @@
                         </div>
                         <p class="text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-map-marker-alt text-[#00e5ff]"></i> Kansas City, Missouri, USA</p>
                     </div>
+                    
                     <div>
                         <div class="flex justify-between items-start mb-3">
                             <div>
@@ -318,25 +305,25 @@
                 </div>
             </div>
 
-            <div class="glass-card p-10 fade-up sound-trigger" data-tilt data-tilt-max="4" data-tilt-perspective="1000">
+            <div class="glass-card p-10 fade-up" data-tilt data-tilt-max="4" data-tilt-perspective="1000">
                 <div class="depth-1">
                     <h3 class="font-sync text-2xl text-white mb-10 border-b border-white/10 pb-4 tracking-widest uppercase"><i class="fas fa-certificate text-[#9d4edd] mr-3"></i> Certifications</h3>
                     <ul class="space-y-6">
-                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5">
+                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5 hover:border-[#00e5ff]/40 transition-colors">
                             <div class="w-12 h-12 rounded-lg bg-[#00e5ff]/10 flex items-center justify-center text-[#00e5ff] flex-shrink-0 text-xl"><i class="fas fa-database"></i></div>
                             <div>
                                 <h4 class="text-white text-base font-bold">Snowflake Data Warehousing</h4>
                                 <p class="text-gray-400 text-xs mt-1 font-sync">Workshop 2026</p>
                             </div>
                         </li>
-                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5">
+                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5 hover:border-[#9d4edd]/40 transition-colors">
                             <div class="w-12 h-12 rounded-lg bg-[#9d4edd]/10 flex items-center justify-center text-[#9d4edd] flex-shrink-0 text-xl"><i class="fas fa-cloud"></i></div>
                             <div>
                                 <h4 class="text-white text-base font-bold">Oracle Cloud (OCI) Foundations</h4>
                                 <p class="text-gray-400 text-xs mt-1 font-sync">Certified Associate 2025</p>
                             </div>
                         </li>
-                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5">
+                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5 hover:border-gray-400/40 transition-colors">
                             <div class="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center text-gray-300 flex-shrink-0 text-xl"><i class="fas fa-brain"></i></div>
                             <div>
                                 <h4 class="text-white text-base font-bold">IBM Python for Data Science</h4>
@@ -350,9 +337,10 @@
     </section>
 
     <section id="skills" class="py-32 px-6 max-w-7xl mx-auto z-10 relative">
-        <h2 class="font-sync text-4xl md:text-5xl font-bold text-center mb-24 tracking-widest fade-up text-white">Skills Matrix</h2>
+        <h2 class="font-sync text-4xl md:text-5xl font-bold text-center mb-24 tracking-widest fade-up text-white"><span class="text-[#9d4edd]">04.</span> Skills Matrix</h2>
+        
         <div class="grid md:grid-cols-3 gap-8">
-            <div class="glass-card p-8 fade-up text-center sound-trigger" data-tilt data-tilt-max="8">
+            <div class="glass-card p-8 fade-up text-center" data-tilt data-tilt-max="8">
                 <div class="depth-1">
                     <i class="fas fa-code text-4xl text-[#00e5ff] mb-6 text-glow depth-2"></i>
                     <h3 class="font-sync text-lg text-white mb-8 uppercase tracking-widest">Development</h3>
@@ -364,7 +352,8 @@
                     </div>
                 </div>
             </div>
-            <div class="glass-card p-8 fade-up text-center sound-trigger" data-tilt data-tilt-max="8">
+
+            <div class="glass-card p-8 fade-up text-center" data-tilt data-tilt-max="8">
                 <div class="depth-1">
                     <i class="fas fa-server text-4xl text-[#9d4edd] mb-6 depth-2" style="text-shadow: 0 0 15px rgba(157,78,221,0.5);"></i>
                     <h3 class="font-sync text-lg text-white mb-8 uppercase tracking-widest">Data & Cloud</h3>
@@ -376,7 +365,8 @@
                     </div>
                 </div>
             </div>
-            <div class="glass-card p-8 fade-up text-center sound-trigger" data-tilt data-tilt-max="8">
+
+            <div class="glass-card p-8 fade-up text-center" data-tilt data-tilt-max="8">
                 <div class="depth-1">
                     <i class="fas fa-chart-pie text-4xl text-[#00e5ff] mb-6 text-glow depth-2"></i>
                     <h3 class="font-sync text-lg text-white mb-8 uppercase tracking-widest">Analytics</h3>
@@ -393,116 +383,20 @@
 
     <footer class="py-24 text-center relative z-10 bg-gradient-to-t from-[#000000] to-transparent border-t border-white/10 mt-10">
         <h2 class="font-sync text-3xl md:text-5xl font-bold text-white mb-16 tracking-wide">Establish <span class="text-[#00e5ff] text-glow">Connection.</span></h2>
+        
         <div class="flex justify-center space-x-8 mb-16">
-            <a href="mailto:satish.addala1144@gmail.com" class="magnetic w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#00e5ff] hover:-translate-y-2 transition-all text-2xl sound-trigger"><i class="fas fa-envelope pointer-events-none"></i></a>
-            <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="magnetic w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#9d4edd] hover:-translate-y-2 transition-all text-2xl sound-trigger"><i class="fab fa-linkedin-in pointer-events-none"></i></a>
-            <a href="tel:+18167154265" class="magnetic w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#00e5ff] hover:-translate-y-2 transition-all text-2xl sound-trigger"><i class="fas fa-phone pointer-events-none"></i></a>
+            <a href="mailto:satish.addala1144@gmail.com" class="w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#00e5ff] hover:-translate-y-2 transition-all text-2xl" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#9d4edd] hover:-translate-y-2 transition-all text-2xl" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="tel:+18167154265" class="w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#00e5ff] hover:-translate-y-2 transition-all text-2xl" aria-label="Phone"><i class="fas fa-phone"></i></a>
         </div>
-        <p class="font-mono text-[10px] text-gray-500 uppercase tracking-[0.5em]">System.Secure.Connect(Satish_Addala) // 2026</p>
+        
+        <p class="font-sync text-[10px] text-gray-500 uppercase tracking-[0.5em]">System.Secure.Connect(Satish_Addala) // 2026</p>
     </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // 1. System Boot Preloader
-            setTimeout(() => {
-                const preloader = document.getElementById('preloader');
-                preloader.style.opacity = '0';
-                setTimeout(() => { preloader.style.display = 'none'; }, 500);
-            }, 1500);
-
-            // 2. Web Audio API - Subtle UI Hover Ticks
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            let audioCtx;
-            
-            function playTick() {
-                if(!audioCtx) audioCtx = new AudioContext();
-                if(audioCtx.state === 'suspended') audioCtx.resume();
-                
-                const osc = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-                
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.05);
-                
-                gainNode.gain.setValueAtTime(0.02, audioCtx.currentTime); // Very quiet
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
-                
-                osc.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.05);
-            }
-
-            document.querySelectorAll('.sound-trigger, .magnetic, a').forEach(el => {
-                el.addEventListener('mouseenter', playTick);
-            });
-
-            // 3. Custom Data Node Cursor
-            const cursor = document.getElementById('custom-cursor');
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-            });
-            document.querySelectorAll('a, button, .magnetic').forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
-            });
-
-            // 4. Live Telemetry Widget
-            const telTime = document.getElementById('tel-time');
-            const telPos = document.getElementById('tel-pos');
-            setInterval(() => {
-                const d = new Date();
-                telTime.innerText = `> TIME: ${d.toLocaleTimeString()} CDT`;
-            }, 1000);
-
-            // 5. Magnetic Buttons Logic
-            document.querySelectorAll('.magnetic').forEach(btn => {
-                btn.addEventListener('mousemove', (e) => {
-                    const rect = btn.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-                });
-                btn.addEventListener('mouseleave', () => {
-                    btn.style.transform = `translate(0px, 0px)`;
-                });
-            });
-
-            // 6. Raw Data Terminal Easter Egg
-            const termBtn = document.getElementById('term-btn');
-            const termOverlay = document.getElementById('terminal-overlay');
-            const termInput = document.getElementById('term-input');
-            const termOutput = document.getElementById('term-output');
-            
-            termBtn.addEventListener('click', () => {
-                termOverlay.classList.add('active');
-                termInput.focus();
-            });
-
-            termInput.addEventListener('keydown', (e) => {
-                if(e.key === 'Enter') {
-                    const val = termInput.value.toLowerCase().trim();
-                    const newDiv = document.createElement('div');
-                    newDiv.innerText = `guest@satish:~$ ${val}`;
-                    termOutput.appendChild(newDiv);
-                    
-                    const response = document.createElement('div');
-                    if(val === 'help') response.innerText = "Commands: skills, contact, clear, exit";
-                    else if(val === 'skills') response.innerText = ">> Python, SQL, Java, OCI, Snowflake, Cryptography";
-                    else if(val === 'contact') response.innerText = ">> satish.addala1144@gmail.com";
-                    else if(val === 'clear') termOutput.innerHTML = '';
-                    else if(val === 'exit') { termOverlay.classList.remove('active'); termInput.value = ''; return; }
-                    else response.innerText = `Command not found: ${val}`;
-                    
-                    if(val !== 'clear') termOutput.appendChild(response);
-                    termInput.value = '';
-                    termOverlay.scrollTop = termOverlay.scrollHeight;
-                }
-            });
-
-            // 7. Fade-Up Intersection Observer
+            // 1. Fade-Up Intersection Observer
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -514,22 +408,26 @@
             }, observerOptions);
             document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-            // 8. Mobile Optimized Three.js Terrain
+            // 2. Three.js - 3D Quantum Data Terrain (Wireframe Mountains)
             const canvas = document.getElementById('webgl-canvas');
             const scene = new THREE.Scene();
+            
+            // Camera setup
             const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1500);
-            camera.position.y = 100; camera.position.z = 400;
+            camera.position.y = 100;
+            camera.position.z = 400;
 
-            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: false }); // Antialias false for perf
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Cap pixel ratio
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(window.innerWidth, window.innerHeight);
 
-            const isMobile = window.innerWidth < 768;
-            const planeSegments = isMobile ? 30 : 70;
+            // Create a large Plane Geometry with many segments
+            const geometry = new THREE.PlaneGeometry(3000, 3000, 80, 80);
             
-            const geometry = new THREE.PlaneGeometry(3000, 3000, planeSegments, planeSegments);
+            // Lay the plane flat
             geometry.rotateX(-Math.PI / 2);
 
+            // Add some noise to the vertices to create "mountains"
             const positionAttribute = geometry.getAttribute('position');
             const vertexCount = positionAttribute.count;
             const originalY = new Float32Array(vertexCount);
@@ -537,17 +435,48 @@
             for (let i = 0; i < vertexCount; i++) {
                 const x = positionAttribute.getX(i);
                 const z = positionAttribute.getZ(i);
+                
+                // Math function to create data-like waves
                 const y = Math.sin(x * 0.005) * Math.cos(z * 0.005) * 150;
                 positionAttribute.setY(i, y);
-                originalY[i] = y;
+                originalY[i] = y; // Store for animation
             }
 
-            const material = new THREE.MeshBasicMaterial({ color: 0x00e5ff, wireframe: true, transparent: true, opacity: 0.12 });
+            geometry.computeVertexNormals();
+
+            // Wireframe Material
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0x00e5ff, 
+                wireframe: true, 
+                transparent: true, 
+                opacity: 0.15 
+            });
+
             const terrain = new THREE.Mesh(geometry, material);
             scene.add(terrain);
 
-            let scrollY = 0; let targetScrollY = 0;
-            let mouseX = 0; let targetMouseX = 0;
+            // Add some floating geometric data packets (nodes)
+            const nodeGeometry = new THREE.OctahedronGeometry(15, 0);
+            const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0x9d4edd, wireframe: true, transparent: true, opacity: 0.4 });
+            const nodes = new THREE.Group();
+            
+            for(let i=0; i<50; i++) {
+                const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
+                node.position.set(
+                    (Math.random() - 0.5) * 2000,
+                    (Math.random() * 300) + 50,
+                    (Math.random() - 0.5) * 2000
+                );
+                node.rotation.set(Math.random(), Math.random(), Math.random());
+                nodes.add(node);
+            }
+            scene.add(nodes);
+
+            // Interaction Variables
+            let scrollY = 0;
+            let targetScrollY = 0;
+            let mouseX = 0;
+            let targetMouseX = 0;
             let clock = new THREE.Clock();
 
             window.addEventListener('resize', () => {
@@ -558,34 +487,54 @@
 
             window.addEventListener('mousemove', (e) => {
                 targetMouseX = (e.clientX - window.innerWidth / 2) * 0.1;
-                // Update Telemetry
-                telPos.innerText = `> POS: [X:${Math.round(e.clientX)}, Y:${Math.round(e.clientY)}, Z:${Math.round(camera.position.z)}]`;
             });
 
-            window.addEventListener('scroll', () => { targetScrollY = window.scrollY; });
+            // True 3D Scroll: Accelerate and fly forward on scroll
+            window.addEventListener('scroll', () => {
+                targetScrollY = window.scrollY;
+            });
 
             function animate() {
                 requestAnimationFrame(animate);
+                
                 const time = clock.getElapsedTime();
 
+                // Smooth scroll interpolation
                 scrollY += (targetScrollY - scrollY) * 0.05;
                 mouseX += (targetMouseX - mouseX) * 0.05;
 
+                // Animate terrain waves
                 const positions = terrain.geometry.attributes.position;
                 for (let i = 0; i < vertexCount; i++) {
                     const x = positions.getX(i);
+                    const z = positions.getZ(i);
+                    // Combine original height with a moving wave based on time and scroll
                     const newY = originalY[i] + Math.sin(x * 0.01 + time + scrollY * 0.005) * 30;
                     positions.setY(i, newY);
                 }
                 positions.needsUpdate = true;
 
+                // Rotate floating nodes
+                nodes.children.forEach((node, index) => {
+                    node.rotation.x += 0.005;
+                    node.rotation.y += 0.005;
+                    node.position.y += Math.sin(time * 2 + index) * 0.5; // slight hover
+                });
+
+                // Camera Fly-Through Effect based on Scroll
+                // As you scroll down, camera moves forward (negative Z) and slightly down
                 camera.position.z = 400 - (scrollY * 0.5);
                 camera.position.y = 100 - (scrollY * 0.02);
+                
+                // Mouse parallax panning
                 camera.position.x = mouseX;
+                
+                // Keep looking forward
                 camera.lookAt(mouseX * 0.5, camera.position.y - 50, camera.position.z - 300);
 
                 renderer.render(scene, camera);
             }
+            
             animate();
         });
     </script>
