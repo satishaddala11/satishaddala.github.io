@@ -22,6 +22,8 @@
             --neon-purple: #9d4edd; 
             --bg-deep: #030407; 
         }
+        
+        body, a, button { cursor: none !important; }
 
         body { 
             font-family: 'Space Grotesk', sans-serif; 
@@ -31,19 +33,17 @@
         
         .font-sync { font-family: 'Syncopate', sans-serif; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
-        
-        /* Preloader */
-        #preloader {
-            position: fixed; inset: 0; z-index: 99999; background: var(--bg-deep);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.5s ease;
+
+        /* Custom Cursor */
+        #custom-cursor {
+            position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+            background: var(--neon-cyan); border-radius: 50%;
+            pointer-events: none; z-index: 100000;
+            transform: translate(-50%, -50%); box-shadow: 0 0 15px var(--neon-cyan);
+            transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+            mix-blend-mode: screen;
         }
-        .loader-text { font-family: 'Syncopate', sans-serif; color: var(--neon-cyan); font-size: 0.8rem; letter-spacing: 0.3em; animation: pulseFlash 1.5s infinite; }
-        .progress-bar { width: 200px; height: 2px; background: rgba(255,255,255,0.1); margin-top: 20px; position: relative; overflow: hidden; }
-        .progress-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--neon-cyan); animation: loadBar 1.5s cubic-bezier(0.8, 0, 0.2, 1) forwards; }
-        
-        @keyframes pulseFlash { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        @keyframes loadBar { 0% { width: 0%; } 100% { width: 100%; } }
+        #custom-cursor.cursor-hover { width: 40px; height: 40px; background: rgba(0, 229, 255, 0.1); border: 1px solid var(--neon-cyan); }
 
         /* Live Telemetry Widget */
         #telemetry {
@@ -79,12 +79,17 @@
         /* Gradients & Glows */
         .text-gradient { background: linear-gradient(to right, var(--neon-cyan), var(--neon-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .text-glow { text-shadow: 0 0 15px rgba(0, 229, 255, 0.5); }
+        .magnetic { transition: transform 0.1s ease; display: inline-flex; }
 
         /* Original Image Frame */
         .passport-frame {
             width: 280px; height: 360px; border-radius: 24px; border: 2px solid rgba(0, 229, 255, 0.4);
             box-shadow: 0 0 40px rgba(0, 229, 255, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.5);
             overflow: hidden; background: #000; position: relative;
+        }
+        .passport-frame::after {
+            content: ''; position: absolute; inset: 0; border-radius: 24px;
+            box-shadow: inset 0 0 20px rgba(0,229,255,0.2); pointer-events: none;
         }
         .passport-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; filter: brightness(1.08) contrast(1.05); }
 
@@ -99,10 +104,7 @@
 </head>
 <body class="selection:bg-[#00e5ff] selection:text-black">
 
-    <div id="preloader">
-        <div class="loader-text">INITIALIZING QUANTUM TERRAIN...</div>
-        <div class="progress-bar"><div class="progress-fill"></div></div>
-    </div>
+    <div id="custom-cursor"></div>
 
     <div id="telemetry">
         <div class="telemetry-line">> SYS_TRACKING: ACTIVE</div>
@@ -128,15 +130,15 @@
     <nav class="fixed top-0 w-full z-40 py-5 px-6 md:px-12 flex justify-between items-center transition-all duration-300" style="background: linear-gradient(to bottom, rgba(3,4,7,0.9), transparent);">
         <div class="font-sync font-bold text-2xl tracking-widest text-white">SATISH <span class="text-[#00e5ff]">ADDALA</span></div>
         <div class="hidden md:flex space-x-8 text-xs font-bold tracking-[0.15em] uppercase items-center text-gray-300">
-            <button id="term-btn" class="hover:text-[#00e5ff] transition-colors" title="Open Terminal">
-                <i class="fas fa-terminal text-lg"></i>
+            <button id="term-btn" class="magnetic hover:text-[#00e5ff] transition-colors" title="Open Terminal">
+                <i class="fas fa-terminal text-lg pointer-events-none"></i>
             </button>
-            <a href="#projects" class="hover:text-[#00e5ff] transition-colors">Projects</a>
-            <a href="#experience" class="hover:text-[#00e5ff] transition-colors">Experience</a>
-            <a href="#education" class="hover:text-[#00e5ff] transition-colors">Education</a>
-            <a href="#skills" class="hover:text-[#00e5ff] transition-colors">Skills</a>
-            <a href="SA_RESUME1144.pdf" target="_blank" class="px-6 py-2.5 rounded-full bg-black/50 backdrop-blur-md text-[#00e5ff] border border-[#00e5ff]/40 hover:bg-[#00e5ff] hover:text-black transition-colors flex items-center gap-2 shadow-[0_0_15px_rgba(0,229,255,0.2)]">
-                <i class="fas fa-file-pdf"></i> <span>View Resume</span>
+            <a href="#projects" class="hover:text-[#00e5ff] transition-colors magnetic-wrap">Projects</a>
+            <a href="#experience" class="hover:text-[#00e5ff] transition-colors magnetic-wrap">Experience</a>
+            <a href="#education" class="hover:text-[#00e5ff] transition-colors magnetic-wrap">Education</a>
+            <a href="#skills" class="hover:text-[#00e5ff] transition-colors magnetic-wrap">Skills</a>
+            <a href="SA_RESUME1144.pdf" target="_blank" class="magnetic px-6 py-2.5 rounded-full bg-black/50 backdrop-blur-md text-[#00e5ff] border border-[#00e5ff]/40 hover:bg-[#00e5ff] hover:text-black transition-colors flex items-center gap-2 shadow-[0_0_15px_rgba(0,229,255,0.2)]">
+                <i class="fas fa-file-pdf pointer-events-none"></i> <span class="pointer-events-none">View Resume</span>
             </a>
         </div>
     </nav>
@@ -153,11 +155,11 @@
                     I am a performance-driven engineer specializing in <strong class="text-white">Scalable Data Architecture</strong>, <strong class="text-white">High-Concurrency Processing</strong>, and <strong class="text-white">Applied Cryptography</strong>. Proven capability to transform raw datasets into high-fidelity business intelligence.
                 </p>
                 <div class="flex flex-wrap gap-6">
-                    <a href="mailto:satish.addala1144@gmail.com" class="px-8 py-4 bg-[#00e5ff] text-black rounded-xl hover:bg-white transition-colors font-sync font-bold tracking-widest uppercase text-xs flex items-center gap-2 shadow-[0_0_20px_rgba(0,229,255,0.4)]">
-                        <i class="fas fa-paper-plane"></i> <span>Reach Out</span>
+                    <a href="mailto:satish.addala1144@gmail.com" class="magnetic px-8 py-4 bg-[#00e5ff] text-black rounded-xl hover:bg-white transition-colors font-sync font-bold tracking-widest uppercase text-xs flex items-center gap-2 shadow-[0_0_20px_rgba(0,229,255,0.4)]">
+                        <i class="fas fa-paper-plane pointer-events-none"></i> <span class="pointer-events-none">Reach Out</span>
                     </a>
-                    <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="w-14 h-14 flex items-center justify-center bg-white/5 backdrop-blur-md border border-white/20 rounded-xl hover:border-[#00e5ff] transition-colors text-xl text-white hover:text-[#00e5ff]">
-                        <i class="fab fa-linkedin-in"></i>
+                    <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="magnetic w-14 h-14 flex items-center justify-center bg-white/5 backdrop-blur-md border border-white/20 rounded-xl hover:border-[#00e5ff] transition-colors text-xl text-white hover:text-[#00e5ff]">
+                        <i class="fab fa-linkedin-in pointer-events-none"></i>
                     </a>
                 </div>
             </div>
@@ -234,7 +236,6 @@
 
     <section id="experience" class="py-32 px-6 max-w-5xl mx-auto z-10 relative">
         <h2 class="font-sync text-4xl md:text-5xl font-bold text-center mb-24 tracking-widest fade-up text-white">Experience</h2>
-        
         <div class="space-y-10">
             <div class="glass-card p-8 md:p-10 fade-up relative sound-trigger" data-tilt data-tilt-max="2" data-tilt-perspective="2000">
                 <div class="depth-1">
@@ -307,23 +308,23 @@
                 <div class="depth-1">
                     <h3 class="font-sync text-2xl text-white mb-10 border-b border-white/10 pb-4 tracking-widest uppercase"><i class="fas fa-certificate text-[#9d4edd] mr-3"></i> Certifications</h3>
                     <ul class="space-y-6">
-                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5 hover:border-[#00e5ff]/40 transition-colors">
-                            <div class="w-12 h-12 rounded-lg bg-[#00e5ff]/10 flex items-center justify-center text-[#00e5ff] flex-shrink-0 text-xl"><i class="fas fa-database"></i></div>
-                            <div>
+                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5 hover:border-[#00e5ff]/40 transition-colors cursor-pointer magnetic">
+                            <div class="w-12 h-12 rounded-lg bg-[#00e5ff]/10 flex items-center justify-center text-[#00e5ff] flex-shrink-0 text-xl pointer-events-none"><i class="fas fa-database"></i></div>
+                            <div class="pointer-events-none">
                                 <h4 class="text-white text-base font-bold">Snowflake Data Warehousing</h4>
                                 <p class="text-gray-400 text-xs mt-1 font-sync">Workshop 2026</p>
                             </div>
                         </li>
-                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5 hover:border-[#9d4edd]/40 transition-colors">
-                            <div class="w-12 h-12 rounded-lg bg-[#9d4edd]/10 flex items-center justify-center text-[#9d4edd] flex-shrink-0 text-xl"><i class="fas fa-cloud"></i></div>
-                            <div>
+                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5 hover:border-[#9d4edd]/40 transition-colors cursor-pointer magnetic">
+                            <div class="w-12 h-12 rounded-lg bg-[#9d4edd]/10 flex items-center justify-center text-[#9d4edd] flex-shrink-0 text-xl pointer-events-none"><i class="fas fa-cloud"></i></div>
+                            <div class="pointer-events-none">
                                 <h4 class="text-white text-base font-bold">Oracle Cloud (OCI) Foundations</h4>
                                 <p class="text-gray-400 text-xs mt-1 font-sync">Certified Associate 2025</p>
                             </div>
                         </li>
-                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5 hover:border-gray-400/40 transition-colors">
-                            <div class="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center text-gray-300 flex-shrink-0 text-xl"><i class="fas fa-brain"></i></div>
-                            <div>
+                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5 hover:border-gray-400/40 transition-colors cursor-pointer magnetic">
+                            <div class="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center text-gray-300 flex-shrink-0 text-xl pointer-events-none"><i class="fas fa-brain"></i></div>
+                            <div class="pointer-events-none">
                                 <h4 class="text-white text-base font-bold">IBM Python for Data Science</h4>
                                 <p class="text-gray-400 text-xs mt-1 font-sync">AI Specialization</p>
                             </div>
@@ -382,9 +383,9 @@
         <h2 class="font-sync text-3xl md:text-5xl font-bold text-white mb-16 tracking-wide">Establish <span class="text-[#00e5ff] text-glow">Connection.</span></h2>
         
         <div class="flex justify-center space-x-8 mb-16">
-            <a href="mailto:satish.addala1144@gmail.com" class="w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#00e5ff] transition-colors text-2xl shadow-[0_0_15px_rgba(0,0,0,0.5)] sound-trigger" aria-label="Email"><i class="fas fa-envelope"></i></a>
-            <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#9d4edd] transition-colors text-2xl shadow-[0_0_15px_rgba(0,0,0,0.5)] sound-trigger" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="tel:+18167154265" class="w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#00e5ff] transition-colors text-2xl shadow-[0_0_15px_rgba(0,0,0,0.5)] sound-trigger" aria-label="Phone"><i class="fas fa-phone"></i></a>
+            <a href="mailto:satish.addala1144@gmail.com" class="magnetic w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#00e5ff] transition-colors text-2xl shadow-[0_0_15px_rgba(0,0,0,0.5)] sound-trigger" aria-label="Email"><i class="fas fa-envelope pointer-events-none"></i></a>
+            <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="magnetic w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#9d4edd] transition-colors text-2xl shadow-[0_0_15px_rgba(0,0,0,0.5)] sound-trigger" aria-label="LinkedIn"><i class="fab fa-linkedin-in pointer-events-none"></i></a>
+            <a href="tel:+18167154265" class="magnetic w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#00e5ff] transition-colors text-2xl shadow-[0_0_15px_rgba(0,0,0,0.5)] sound-trigger" aria-label="Phone"><i class="fas fa-phone pointer-events-none"></i></a>
         </div>
         
         <p class="font-sync text-[10px] text-gray-500 uppercase tracking-[0.5em]">System.Secure.Connect(Satish_Addala) // 2026</p>
@@ -393,12 +394,16 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // 1. System Boot Preloader
-            setTimeout(() => {
-                const preloader = document.getElementById('preloader');
-                preloader.style.opacity = '0';
-                setTimeout(() => { preloader.style.display = 'none'; }, 500);
-            }, 1500);
+            // 1. Custom Node Cursor
+            const cursor = document.getElementById('custom-cursor');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+            });
+            
+            document.querySelectorAll('a, button, .magnetic, .magnetic-wrap').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+            });
 
             // 2. Web Audio API - Subtle UI Hover Ticks
             const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -468,7 +473,20 @@
                 }
             });
 
-            // 5. Fade-Up Intersection Observer
+            // 5. Magnetic Buttons Logic
+            document.querySelectorAll('.magnetic').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = `translate(0px, 0px)`;
+                });
+            });
+
+            // 6. Fade-Up Intersection Observer
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -480,7 +498,7 @@
             }, observerOptions);
             document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-            // 6. Mobile Optimized Three.js Terrain
+            // 7. Mobile Optimized Three.js Terrain
             const canvas = document.getElementById('webgl-canvas');
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1500);
@@ -511,6 +529,22 @@
             const material = new THREE.MeshBasicMaterial({ color: 0x00e5ff, wireframe: true, transparent: true, opacity: 0.12 });
             const terrain = new THREE.Mesh(geometry, material);
             scene.add(terrain);
+
+            const nodeGeometry = new THREE.OctahedronGeometry(isMobile ? 25 : 15, 0);
+            const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0x9d4edd, wireframe: true, transparent: true, opacity: 0.4 });
+            const nodes = new THREE.Group();
+            
+            for(let i=0; i< (isMobile ? 15 : 50); i++) {
+                const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
+                node.position.set(
+                    (Math.random() - 0.5) * 2000,
+                    (Math.random() * 300) + 50,
+                    (Math.random() - 0.5) * 2000
+                );
+                node.rotation.set(Math.random(), Math.random(), Math.random());
+                nodes.add(node);
+            }
+            scene.add(nodes);
 
             let scrollY = 0; let targetScrollY = 0;
             let mouseX = 0; let targetMouseX = 0;
@@ -544,6 +578,12 @@
                     positions.setY(i, newY);
                 }
                 positions.needsUpdate = true;
+
+                nodes.children.forEach((node, index) => {
+                    node.rotation.x += 0.005;
+                    node.rotation.y += 0.005;
+                    node.position.y += Math.sin(time * 2 + index) * 0.5; 
+                });
 
                 camera.position.z = 400 - (scrollY * 0.5);
                 camera.position.y = 100 - (scrollY * 0.02);
