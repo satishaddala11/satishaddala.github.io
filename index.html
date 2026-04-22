@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satish Addala | Data Architect</title>
+    <title>Satish Addala | Senior Data Architect</title>
     
-    <meta name="title" content="Satish Addala | Data Architect">
+    <meta name="title" content="Satish Addala | Senior Data Architect">
     <meta name="description" content="Master's Candidate at UMKC specializing in Distributed Systems, Data Engineering, and Applied Cryptography.">
     
     <link rel="icon" type="image/png" href="IMG_2443.png">
@@ -19,9 +19,9 @@
 
     <style>
         :root { 
-            --neon-blue: #00f0ff; 
+            --neon-cyan: #00f0ff; 
             --neon-purple: #8a2be2; 
-            --bg-deep: #020204; 
+            --bg-deep: #020205; 
         }
         
         body { 
@@ -34,8 +34,8 @@
         
         .font-sync { font-family: 'Syncopate', sans-serif; }
         
-        /* 3D WebGL Container */
-        #webgl-container { 
+        /* 3D WebGL Canvas Layer */
+        #webgl-canvas { 
             position: fixed; 
             top: 0; 
             left: 0; 
@@ -45,93 +45,78 @@
             pointer-events: none;
         }
         
-        /* 3D Glassmorphism Cards */
-        .glass-3d { 
-            background: rgba(10, 10, 15, 0.5); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+        /* Glassmorphism Panel with 3D Preserve */
+        .glass-panel { 
+            background: rgba(10, 12, 20, 0.55); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 240, 255, 0.1); 
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
             transform-style: preserve-3d;
-            transition: border-color 0.4s ease;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        .glass-panel:hover {
+            border-color: rgba(0, 240, 255, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 240, 255, 0.1);
         }
         
-        /* Z-Axis Depth for Holographic effect */
-        .tilt-content { transform: translateZ(40px); transform-style: preserve-3d; }
-        .tilt-icon { transform: translateZ(70px); }
-        .tilt-img { transform: translateZ(50px); }
+        /* Z-Axis Depth for Card Contents */
+        .depth-1 { transform: translateZ(30px); transform-style: preserve-3d; }
+        .depth-2 { transform: translateZ(60px); }
+        .depth-3 { transform: translateZ(90px); }
 
-        /* Neon Glowing Effects */
-        .glow-text { text-shadow: 0 0 20px var(--neon-blue); }
-        .glow-text-purple { text-shadow: 0 0 20px var(--neon-purple); }
+        /* Glowing Text & Borders */
+        .text-glow-cyan { text-shadow: 0 0 15px var(--neon-cyan); }
+        .text-glow-purple { text-shadow: 0 0 15px var(--neon-purple); }
         
-        .glow-border { position: relative; }
-        .glow-border::before {
-            content: ''; 
-            position: absolute; 
-            inset: -2px; 
-            z-index: -1;
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-blue));
-            filter: blur(12px); 
-            opacity: 0.6; 
-            border-radius: inherit; 
-            animation: pulse 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes pulse { 
-            0% { opacity: 0.4; filter: blur(10px); } 
-            100% { opacity: 0.9; filter: blur(18px); } 
-        }
-        
-        /* Crystal Clear Original Image Mask (No dulling overlays) */
-        .img-container {
+        /* Original Bright Image Mask */
+        .profile-img-box {
             width: 320px; 
             height: 320px; 
-            border-radius: 2rem; 
-            border: 2px solid rgba(0, 240, 255, 0.5);
-            box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
+            border-radius: 24px; 
+            border: 2px solid rgba(0, 240, 255, 0.6);
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.3);
             overflow: hidden;
-            background: transparent;
+            background: #000;
         }
-        .img-container img {
+        .profile-img-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: top;
-            /* Ensures original colors pop */
-            filter: brightness(1.05) contrast(1.05); 
+            filter: brightness(1.1) contrast(1.05); /* Enhances original clarity */
         }
 
         /* Scroll Reveal Animation */
         .reveal { 
             opacity: 0; 
-            transform: translateY(60px) scale(0.95); 
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); 
+            transform: translateY(80px) scale(0.95); 
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); 
         }
         .reveal.active { 
             opacity: 1; 
             transform: translateY(0) scale(1); 
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-deep); }
-        ::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.3); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--neon-blue); }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.4); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
     </style>
 </head>
 <body class="selection:bg-[#00f0ff] selection:text-black">
 
-    <div id="webgl-container"></div>
+    <canvas id="webgl-canvas"></canvas>
 
-    <nav class="fixed top-0 w-full z-50 py-6 px-6 md:px-16 flex justify-between items-center transition-all duration-300 bg-gradient-to-b from-[#020204] to-transparent" id="navbar">
+    <nav class="fixed top-0 w-full z-50 py-6 px-6 md:px-16 flex justify-between items-center transition-all duration-300 bg-gradient-to-b from-[#020205] to-transparent" id="navbar">
         <div class="font-sync font-bold text-xl tracking-widest text-white">SATISH <span class="text-[#00f0ff]">ADDALA</span></div>
         <div class="hidden md:flex space-x-10 text-xs font-bold tracking-[0.2em] uppercase items-center">
             <a href="#projects" class="hover:text-[#00f0ff] transition-colors">Projects</a>
             <a href="#experience" class="hover:text-[#00f0ff] transition-colors">Experience</a>
             <a href="#education" class="hover:text-[#00f0ff] transition-colors">Education</a>
             <a href="#skills" class="hover:text-[#00f0ff] transition-colors">Skills</a>
-            <a href="SA_RESUME1144.pdf" target="_blank" class="glow-border px-6 py-3 rounded-full bg-black/60 backdrop-blur-md text-[#00f0ff] border border-[#00f0ff]/30 hover:bg-[#00f0ff] hover:text-black transition-all flex items-center gap-2">
+            <a href="SA_RESUME1144.pdf" target="_blank" class="px-6 py-3 rounded-full bg-black/60 backdrop-blur-md text-[#00f0ff] border border-[#00f0ff]/50 hover:bg-[#00f0ff] hover:text-black transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
                 <i class="fas fa-file-pdf"></i> View_Resume
             </a>
         </div>
@@ -141,7 +126,7 @@
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center w-full">
             
             <div class="z-10">
-                <p class="font-sync text-[#00f0ff] text-xs mb-6 tracking-[0.3em] uppercase glow-text">Master's Candidate @ UMKC</p>
+                <p class="font-sync text-[#00f0ff] text-xs mb-6 tracking-[0.3em] uppercase text-glow-cyan">Master's Candidate @ UMKC</p>
                 <h1 class="font-sync text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.1] mb-8">
                     Data <br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00f0ff] to-[#8a2be2]">Architect.</span>
@@ -150,18 +135,18 @@
                     I am a performance-driven engineer specializing in <strong class="text-white">Scalable Data Architecture</strong>, <strong class="text-white">High-Concurrency Processing</strong>, and <strong class="text-white">Applied Cryptography</strong>. Proven capability to transform raw datasets into high-fidelity business intelligence.
                 </p>
                 <div class="flex flex-wrap gap-6">
-                    <a href="mailto:satish.addala1144@gmail.com" class="px-8 py-4 bg-[#00f0ff] text-black rounded-xl hover:bg-white transition-all font-sync font-bold tracking-widest uppercase text-xs flex items-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.4)]">
+                    <a href="mailto:satish.addala1144@gmail.com" class="px-8 py-4 bg-[#00f0ff] text-black rounded-xl hover:bg-white transition-all font-sync font-bold tracking-widest uppercase text-xs flex items-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.5)]">
                         <i class="fas fa-envelope"></i> Reach Out
                     </a>
-                    <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="w-14 h-14 flex items-center justify-center bg-white/5 backdrop-blur-md border border-white/10 rounded-xl hover:border-[#00f0ff] transition-all text-xl text-gray-300 hover:text-[#00f0ff]">
+                    <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="w-14 h-14 flex items-center justify-center bg-white/5 backdrop-blur-md border border-white/20 rounded-xl hover:border-[#00f0ff] transition-all text-xl text-white hover:text-[#00f0ff]">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
                 </div>
             </div>
 
-            <div class="flex justify-center lg:justify-end z-10" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-perspective="1000" data-tilt-glare="true" data-tilt-max-glare="0.4">
-                <div class="glass-3d p-4 rounded-[2.5rem] glow-border">
-                    <div class="img-container tilt-img">
+            <div class="flex justify-center lg:justify-end z-10" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-perspective="1000" data-tilt-glare="true" data-tilt-max-glare="0.3">
+                <div class="glass-panel p-4 rounded-[2.5rem]">
+                    <div class="profile-img-box depth-2">
                         <img src="IMG_2443.png" alt="Satish Addala">
                     </div>
                 </div>
@@ -170,51 +155,67 @@
     </section>
 
     <section id="projects" class="py-32 px-6 max-w-7xl mx-auto relative z-10">
-        <h2 class="font-sync text-4xl md:text-6xl text-center mb-24 tracking-widest reveal"><span class="text-[#00f0ff] glow-text">01.</span> Projects</h2>
+        <h2 class="font-sync text-4xl md:text-6xl text-center mb-24 tracking-widest reveal"><span class="text-[#00f0ff] text-glow-cyan">01.</span> Projects</h2>
         
         <div class="grid md:grid-cols-2 gap-10">
-            <div class="glass-3d p-10 rounded-3xl reveal hover:border-[#00f0ff]/50" data-tilt data-tilt-max="8" data-tilt-perspective="1200">
-                <div class="tilt-content">
-                    <div class="w-16 h-16 bg-[#00f0ff]/10 rounded-2xl flex items-center justify-center text-[#00f0ff] text-3xl mb-8 tilt-icon shadow-[0_0_20px_rgba(0,240,255,0.4)]"><i class="fas fa-share-nodes"></i></div>
-                    <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">Federated Machine Learning</h3>
-                    <p class="text-gray-300 font-light leading-relaxed mb-8"><strong>Theme:</strong> Privacy-Preserving AI.<br><strong>What I did:</strong> Built a distributed system where machine learning models train locally on edge devices rather than centralized servers.<br><strong>Output:</strong> Successfully aggregated model weights securely without ever exposing or moving the raw user data, ensuring high privacy while maintaining model accuracy.</p>
-                    <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#00f0ff] uppercase tracking-widest">
+            <div class="glass-panel p-10 rounded-3xl reveal" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
+                <div class="depth-1">
+                    <div class="w-16 h-16 bg-[#00f0ff]/10 rounded-2xl flex items-center justify-center text-[#00f0ff] text-3xl mb-8 depth-3 shadow-[0_0_20px_rgba(0,240,255,0.4)]"><i class="fas fa-share-nodes"></i></div>
+                    <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white depth-2">Federated Machine Learning</h3>
+                    <div class="text-gray-300 font-light leading-relaxed mb-8 depth-1 space-y-3">
+                        <p><strong class="text-white">Theme:</strong> Privacy-Preserving AI.</p>
+                        <p><strong class="text-white">What I did:</strong> Built a distributed system where machine learning models train locally on edge devices rather than centralized servers.</p>
+                        <p><strong class="text-white">Output:</strong> Successfully aggregated model weights securely without ever exposing or moving the raw user data, ensuring high privacy while maintaining model accuracy.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#00f0ff] uppercase tracking-widest depth-2">
                         <span class="px-3 py-1 bg-[#00f0ff]/10 border border-[#00f0ff]/30 rounded-full">Data Science</span>
                         <span class="px-3 py-1 bg-[#00f0ff]/10 border border-[#00f0ff]/30 rounded-full">Python</span>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-3d p-10 rounded-3xl reveal hover:border-[#8a2be2]/50" data-tilt data-tilt-max="8" data-tilt-perspective="1200">
-                <div class="tilt-content">
-                    <div class="w-16 h-16 bg-[#8a2be2]/10 rounded-2xl flex items-center justify-center text-[#8a2be2] text-3xl mb-8 tilt-icon shadow-[0_0_20px_rgba(138,43,226,0.4)]"><i class="fas fa-database"></i></div>
-                    <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">Scalable Data Modules</h3>
-                    <p class="text-gray-300 font-light leading-relaxed mb-8"><strong>Theme:</strong> Enterprise Data Optimization.<br><strong>What I did:</strong> Analyzed and identified severe bottlenecks in high-traffic, legacy Java and SQL applications.<br><strong>Output:</strong> Completely redesigned the database schemas and queries, which cleared system logjams and drastically sped up the generation and retrieval of critical corporate reports.</p>
-                    <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#8a2be2] uppercase tracking-widest">
+            <div class="glass-panel p-10 rounded-3xl reveal" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
+                <div class="depth-1">
+                    <div class="w-16 h-16 bg-[#8a2be2]/10 rounded-2xl flex items-center justify-center text-[#8a2be2] text-3xl mb-8 depth-3 shadow-[0_0_20px_rgba(138,43,226,0.4)]"><i class="fas fa-database"></i></div>
+                    <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white depth-2">Scalable Data Modules</h3>
+                    <div class="text-gray-300 font-light leading-relaxed mb-8 depth-1 space-y-3">
+                        <p><strong class="text-white">Theme:</strong> Enterprise Data Optimization.</p>
+                        <p><strong class="text-white">What I did:</strong> Analyzed and identified severe bottlenecks in high-traffic, legacy Java and SQL applications.</p>
+                        <p><strong class="text-white">Output:</strong> Completely redesigned the database schemas and queries, which cleared system logjams and drastically sped up the generation and retrieval of critical corporate reports.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#8a2be2] uppercase tracking-widest depth-2">
                         <span class="px-3 py-1 bg-[#8a2be2]/10 border border-[#8a2be2]/30 rounded-full">Java / SQL</span>
                         <span class="px-3 py-1 bg-[#8a2be2]/10 border border-[#8a2be2]/30 rounded-full">Optimization</span>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-3d p-10 rounded-3xl reveal hover:border-[#8a2be2]/50" data-tilt data-tilt-max="8" data-tilt-perspective="1200">
-                <div class="tilt-content">
-                    <div class="w-16 h-16 bg-[#8a2be2]/10 rounded-2xl flex items-center justify-center text-[#8a2be2] text-3xl mb-8 tilt-icon shadow-[0_0_20px_rgba(138,43,226,0.4)]"><i class="fas fa-microchip"></i></div>
-                    <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">IoT Data Ingestion Pipeline</h3>
-                    <p class="text-gray-300 font-light leading-relaxed mb-8"><strong>Theme:</strong> Real-time Environmental Monitoring.<br><strong>What I did:</strong> Connected remote hardware sensor arrays to a custom-built, secure cloud backend.<br><strong>Output:</strong> Delivered a highly reliable data pipeline that continuously streams, processes, and displays high-frequency environmental data without crashing or dropping packets under heavy load.</p>
-                    <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#8a2be2] uppercase tracking-widest">
+            <div class="glass-panel p-10 rounded-3xl reveal" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
+                <div class="depth-1">
+                    <div class="w-16 h-16 bg-[#8a2be2]/10 rounded-2xl flex items-center justify-center text-[#8a2be2] text-3xl mb-8 depth-3 shadow-[0_0_20px_rgba(138,43,226,0.4)]"><i class="fas fa-microchip"></i></div>
+                    <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white depth-2">IoT Data Ingestion Pipeline</h3>
+                    <div class="text-gray-300 font-light leading-relaxed mb-8 depth-1 space-y-3">
+                        <p><strong class="text-white">Theme:</strong> Real-time Environmental Monitoring.</p>
+                        <p><strong class="text-white">What I did:</strong> Connected remote hardware sensor arrays to a custom-built, secure cloud backend.</p>
+                        <p><strong class="text-white">Output:</strong> Delivered a highly reliable data pipeline that continuously streams, processes, and displays high-frequency environmental data without crashing or dropping packets under heavy load.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#8a2be2] uppercase tracking-widest depth-2">
                         <span class="px-3 py-1 bg-[#8a2be2]/10 border border-[#8a2be2]/30 rounded-full">Data Streams</span>
                         <span class="px-3 py-1 bg-[#8a2be2]/10 border border-[#8a2be2]/30 rounded-full">Cloud APIs</span>
                     </div>
                 </div>
             </div>
             
-            <div class="glass-3d p-10 rounded-3xl reveal hover:border-[#00f0ff]/50" data-tilt data-tilt-max="8" data-tilt-perspective="1200">
-                <div class="tilt-content">
-                    <div class="w-16 h-16 bg-[#00f0ff]/10 rounded-2xl flex items-center justify-center text-[#00f0ff] text-3xl mb-8 tilt-icon shadow-[0_0_20px_rgba(0,240,255,0.4)]"><i class="fas fa-chart-network"></i></div>
-                    <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">Predictive Consumer Analytics</h3>
-                    <p class="text-gray-300 font-light leading-relaxed mb-8"><strong>Theme:</strong> Business Intelligence & Strategy.<br><strong>What I did:</strong> Took messy, unstructured datasets and wrote automated Python scripts (Pandas/NumPy) to clean and analyze the information.<br><strong>Output:</strong> Discovered hidden consumer buying patterns and built interactive Tableau dashboards, giving executives clear visual metrics to make data-driven decisions.</p>
-                    <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#00f0ff] uppercase tracking-widest">
+            <div class="glass-panel p-10 rounded-3xl reveal" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
+                <div class="depth-1">
+                    <div class="w-16 h-16 bg-[#00f0ff]/10 rounded-2xl flex items-center justify-center text-[#00f0ff] text-3xl mb-8 depth-3 shadow-[0_0_20px_rgba(0,240,255,0.4)]"><i class="fas fa-chart-network"></i></div>
+                    <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white depth-2">Predictive Consumer Analytics</h3>
+                    <div class="text-gray-300 font-light leading-relaxed mb-8 depth-1 space-y-3">
+                        <p><strong class="text-white">Theme:</strong> Business Intelligence & Strategy.</p>
+                        <p><strong class="text-white">What I did:</strong> Took messy, unstructured datasets and wrote automated Python scripts (Pandas/NumPy) to clean and analyze the information.</p>
+                        <p><strong class="text-white">Output:</strong> Discovered hidden consumer buying patterns and built interactive Tableau dashboards, giving executives clear visual metrics to make data-driven decisions.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#00f0ff] uppercase tracking-widest depth-2">
                         <span class="px-3 py-1 bg-[#00f0ff]/10 border border-[#00f0ff]/30 rounded-full">EDA / Python</span>
                         <span class="px-3 py-1 bg-[#00f0ff]/10 border border-[#00f0ff]/30 rounded-full">Tableau</span>
                     </div>
@@ -223,78 +224,84 @@
         </div>
     </section>
 
-    <section id="experience" class="py-32 px-6 max-w-5xl mx-auto relative z-10 border-t border-white/5">
-        <h2 class="font-sync text-4xl md:text-6xl text-center mb-24 tracking-widest reveal"><span class="text-[#8a2be2] glow-text-purple">02.</span> Experience</h2>
+    <section id="experience" class="py-32 px-6 max-w-5xl mx-auto relative z-10 border-t border-white/10">
+        <h2 class="font-sync text-4xl md:text-6xl text-center mb-24 tracking-widest reveal"><span class="text-[#8a2be2] text-glow-purple">02.</span> Experience</h2>
         
         <div class="space-y-12">
-            <div class="glass-3d p-8 md:p-10 rounded-3xl relative reveal hover:border-[#00f0ff]/50 transition-colors" data-tilt data-tilt-max="3" data-tilt-perspective="1500">
-                <div class="tilt-content">
-                    <div class="absolute -left-[5px] top-1/2 w-2 h-16 bg-[#00f0ff] rounded-full -translate-y-1/2 shadow-[0_0_15px_#00f0ff]"></div>
+            <div class="glass-panel p-8 md:p-10 rounded-3xl relative reveal" data-tilt data-tilt-max="2" data-tilt-perspective="2000">
+                <div class="depth-1">
+                    <div class="absolute -left-[6px] top-1/2 w-3 h-16 bg-[#00f0ff] rounded-full -translate-y-1/2 shadow-[0_0_15px_#00f0ff]"></div>
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-0">IS Lab Assistant</h3>
-                        <span class="text-[#00f0ff] text-xs font-sync px-4 py-2 bg-[#00f0ff]/10 rounded-full w-fit">UMKC</span>
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-0 depth-2">IS Lab Assistant</h3>
+                        <span class="text-[#00f0ff] text-xs font-sync px-4 py-2 bg-[#00f0ff]/10 rounded-full w-fit depth-2 border border-[#00f0ff]/20">UMKC</span>
                     </div>
-                    <p class="text-gray-400 font-sync text-[10px] tracking-widest uppercase mb-6">Kansas City, Missouri, USA | 2024 - Present</p>
-                    <p class="text-gray-300 text-lg font-light leading-relaxed">Provide critical tier-2 technical support and network orchestration for university-wide infrastructure, ensuring 99.9% uptime for advanced research facilities. Developed and deployed custom Python automation scripts that monitor system health, effectively reducing manual diagnostic times by 20% and improving overall lab efficiency.</p>
+                    <p class="text-[#00f0ff] font-sync text-[11px] tracking-widest uppercase mb-6 depth-1">Kansas City, Missouri, USA | 2024 - Present</p>
+                    <p class="text-gray-300 text-lg font-light leading-relaxed depth-1">Provide critical tier-2 technical support and network orchestration for university-wide infrastructure, ensuring 99.9% uptime for advanced research facilities. Developed and deployed custom Python automation scripts that monitor system health, effectively reducing manual diagnostic times by 20% and improving overall lab efficiency.</p>
                 </div>
             </div>
 
-            <div class="glass-3d p-8 md:p-10 rounded-3xl relative reveal hover:border-[#8a2be2]/50 transition-colors" data-tilt data-tilt-max="3" data-tilt-perspective="1500">
-                <div class="tilt-content">
-                    <div class="absolute -left-[5px] top-1/2 w-2 h-16 bg-[#8a2be2] rounded-full -translate-y-1/2 shadow-[0_0_15px_#8a2be2]"></div>
+            <div class="glass-panel p-8 md:p-10 rounded-3xl relative reveal" data-tilt data-tilt-max="2" data-tilt-perspective="2000">
+                <div class="depth-1">
+                    <div class="absolute -left-[6px] top-1/2 w-3 h-16 bg-[#8a2be2] rounded-full -translate-y-1/2 shadow-[0_0_15px_#8a2be2]"></div>
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-0">Data Associate</h3>
-                        <span class="text-[#8a2be2] text-xs font-sync px-4 py-2 bg-[#8a2be2]/10 rounded-full w-fit">IBM</span>
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-0 depth-2">Data Associate</h3>
+                        <span class="text-[#8a2be2] text-xs font-sync px-4 py-2 bg-[#8a2be2]/10 rounded-full w-fit depth-2 border border-[#8a2be2]/20">IBM</span>
                     </div>
-                    <p class="text-gray-400 font-sync text-[10px] tracking-widest uppercase mb-6">Hyderabad, India | 2023 - 2024</p>
-                    <p class="text-gray-300 text-lg font-light leading-relaxed">Architected and maintained scalable Java and SQL-based data modules to support high-concurrency enterprise applications. Spearheaded the restructuring of legacy relational database schemas, which significantly reduced query latency and optimized the data retrieval process for real-time corporate reporting.</p>
+                    <p class="text-[#8a2be2] font-sync text-[11px] tracking-widest uppercase mb-6 depth-1">Hyderabad, India | 2023 - 2024</p>
+                    <p class="text-gray-300 text-lg font-light leading-relaxed depth-1">Architected and maintained scalable Java and SQL-based data modules to support high-concurrency enterprise applications. Spearheaded the restructuring of legacy relational database schemas, which significantly reduced query latency and optimized the data retrieval process for real-time corporate reporting.</p>
                 </div>
             </div>
 
-            <div class="glass-3d p-8 md:p-10 rounded-3xl relative reveal hover:border-gray-400/50 transition-colors" data-tilt data-tilt-max="3" data-tilt-perspective="1500">
-                <div class="tilt-content">
-                    <div class="absolute -left-[5px] top-1/2 w-2 h-16 bg-gray-500 rounded-full -translate-y-1/2"></div>
+            <div class="glass-panel p-8 md:p-10 rounded-3xl relative reveal" data-tilt data-tilt-max="2" data-tilt-perspective="2000">
+                <div class="depth-1">
+                    <div class="absolute -left-[6px] top-1/2 w-3 h-16 bg-gray-400 rounded-full -translate-y-1/2 shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-0">Analytics Intern</h3>
-                        <span class="text-gray-300 text-xs font-sync px-4 py-2 bg-white/10 rounded-full w-fit">Accenture</span>
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-0 depth-2">Analytics Intern</h3>
+                        <span class="text-gray-300 text-xs font-sync px-4 py-2 bg-white/10 rounded-full w-fit depth-2 border border-white/20">Accenture</span>
                     </div>
-                    <p class="text-gray-400 font-sync text-[10px] tracking-widest uppercase mb-6">Hyderabad, India | 2022 - 2023</p>
-                    <p class="text-gray-300 text-lg font-light leading-relaxed">Conducted intensive Exploratory Data Analysis (EDA) across massive, heterogeneous datasets to support internal business strategies. Built robust data cleaning pipelines in Python and utilized advanced visualization frameworks to design interactive KPI dashboards for executive stakeholders.</p>
+                    <p class="text-gray-400 font-sync text-[11px] tracking-widest uppercase mb-6 depth-1">Hyderabad, India | 2022 - 2023</p>
+                    <p class="text-gray-300 text-lg font-light leading-relaxed depth-1">Conducted intensive Exploratory Data Analysis (EDA) across massive, heterogeneous datasets to support internal business strategies. Built robust data cleaning pipelines in Python and utilized advanced visualization frameworks to design interactive KPI dashboards for executive stakeholders.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="education" class="py-32 px-6 max-w-7xl mx-auto relative z-10 border-t border-white/5">
-        <h2 class="font-sync text-4xl md:text-6xl text-center mb-24 tracking-widest reveal"><span class="text-[#00f0ff] glow-text">03.</span> Education</h2>
+    <section id="education" class="py-32 px-6 max-w-7xl mx-auto relative z-10 border-t border-white/10">
+        <h2 class="font-sync text-4xl md:text-6xl text-center mb-24 tracking-widest reveal"><span class="text-[#00f0ff] text-glow-cyan">03.</span> Education</h2>
         
         <div class="grid md:grid-cols-2 gap-10">
-            <div class="glass-3d p-10 rounded-3xl reveal glow-border" data-tilt data-tilt-max="5" data-tilt-perspective="1000">
-                <div class="tilt-content">
-                    <h3 class="font-sync text-2xl text-white mb-10 border-b border-white/10 pb-4 tracking-widest uppercase"><i class="fas fa-graduation-cap text-[#00f0ff] mr-3"></i> Degrees</h3>
-                    <div class="mb-10">
-                        <div class="flex justify-between items-center mb-3">
-                            <h4 class="text-xl md:text-2xl font-bold text-white">MS, Computer Science</h4>
-                            <span class="text-[#00f0ff] font-sync text-[10px] tracking-widest bg-[#00f0ff]/10 px-3 py-1 rounded-full border border-[#00f0ff]/30 text-center">2024 - 2026<br>(Expected)</span>
+            <div class="glass-panel p-10 rounded-3xl reveal" data-tilt data-tilt-max="4" data-tilt-perspective="1000">
+                <div class="depth-1">
+                    <h3 class="font-sync text-2xl text-white mb-10 border-b border-white/10 pb-4 tracking-widest uppercase depth-2"><i class="fas fa-graduation-cap text-[#00f0ff] mr-3"></i> Degrees</h3>
+                    
+                    <div class="mb-10 depth-1">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h4 class="text-xl md:text-2xl font-bold text-white">MS, Computer Science</h4>
+                                <p class="text-[#00f0ff] text-lg mt-1">University of Missouri-Kansas City</p>
+                            </div>
+                            <span class="text-[#00f0ff] font-sync text-[10px] tracking-widest bg-[#00f0ff]/10 px-3 py-2 rounded-lg border border-[#00f0ff]/30 text-center">2024 - 2026</span>
                         </div>
-                        <p class="text-gray-400 text-lg">University of Missouri-Kansas City</p>
-                        <p class="text-gray-500 text-sm mt-1">Kansas City, Missouri, USA</p>
+                        <p class="text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-map-marker-alt"></i> Kansas City, Missouri, USA</p>
                     </div>
-                    <div>
-                        <div class="flex justify-between items-center mb-3">
-                            <h4 class="text-xl md:text-2xl font-bold text-white">B.Tech, Computer Science</h4>
-                            <span class="text-gray-400 font-sync text-[10px] tracking-widest bg-white/5 px-3 py-1 rounded-full border border-white/10 text-center">2019 - 2023</span>
+                    
+                    <div class="depth-1">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h4 class="text-xl md:text-2xl font-bold text-white">B.Tech, Computer Science</h4>
+                                <p class="text-gray-300 text-lg mt-1">GITAM University</p>
+                            </div>
+                            <span class="text-gray-300 font-sync text-[10px] tracking-widest bg-white/5 px-3 py-2 rounded-lg border border-white/10 text-center">2019 - 2023</span>
                         </div>
-                        <p class="text-gray-400 text-lg">GITAM University</p>
-                        <p class="text-gray-500 text-sm mt-1">Visakhapatnam, India</p>
+                        <p class="text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-map-marker-alt"></i> Visakhapatnam, India</p>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-3d p-10 rounded-3xl reveal" data-tilt data-tilt-max="5" data-tilt-perspective="1000">
-                <div class="tilt-content">
-                    <h3 class="font-sync text-2xl text-white mb-10 border-b border-white/10 pb-4 tracking-widest uppercase"><i class="fas fa-certificate text-[#8a2be2] mr-3"></i> Certifications</h3>
-                    <ul class="space-y-6">
+            <div class="glass-panel p-10 rounded-3xl reveal" data-tilt data-tilt-max="4" data-tilt-perspective="1000">
+                <div class="depth-1">
+                    <h3 class="font-sync text-2xl text-white mb-10 border-b border-white/10 pb-4 tracking-widest uppercase depth-2"><i class="fas fa-certificate text-[#8a2be2] mr-3"></i> Certifications</h3>
+                    <ul class="space-y-6 depth-1">
                         <li class="flex items-center gap-5 p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-[#00f0ff]/40 transition-colors">
                             <div class="w-12 h-12 rounded-full bg-[#00f0ff]/10 flex items-center justify-center text-[#00f0ff] flex-shrink-0 text-xl"><i class="fas fa-database"></i></div>
                             <div>
@@ -322,65 +329,64 @@
         </div>
     </section>
 
-    <section id="skills" class="py-32 px-6 max-w-7xl mx-auto relative z-10 border-t border-white/5">
-        <h2 class="font-sync text-4xl md:text-6xl text-center mb-24 tracking-widest reveal"><span class="text-[#8a2be2] glow-text-purple">04.</span> Skills Matrix</h2>
+    <section id="skills" class="py-32 px-6 max-w-7xl mx-auto relative z-10 border-t border-white/10">
+        <h2 class="font-sync text-4xl md:text-6xl text-center mb-24 tracking-widest reveal"><span class="text-[#8a2be2] text-glow-purple">04.</span> Skills Matrix</h2>
         
         <div class="grid md:grid-cols-3 gap-8">
-            <div class="glass-3d p-8 rounded-3xl reveal text-center hover:border-[#00f0ff]/50 transition-colors" data-tilt data-tilt-max="10">
-                <div class="tilt-content">
-                    <i class="fas fa-code text-4xl text-[#00f0ff] mb-6 glow-text"></i>
-                    <h3 class="font-sync text-xl text-white mb-6 uppercase tracking-widest">Development</h3>
+            <div class="glass-panel p-8 rounded-3xl reveal text-center" data-tilt data-tilt-max="8">
+                <div class="depth-1">
+                    <i class="fas fa-code text-5xl text-[#00f0ff] mb-6 text-glow-cyan depth-2"></i>
+                    <h3 class="font-sync text-xl text-white mb-8 uppercase tracking-widest">Development</h3>
                     <div class="flex flex-wrap justify-center gap-3">
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-300 border border-white/10">Python</span>
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-300 border border-white/10">Java</span>
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-300 border border-white/10">SQL</span>
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-300 border border-white/10">JavaScript</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-200 border border-[#00f0ff]/20">Python</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-200 border border-[#00f0ff]/20">Java</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-200 border border-[#00f0ff]/20">SQL</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-200 border border-[#00f0ff]/20">JavaScript</span>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-3d p-8 rounded-3xl reveal text-center hover:border-[#8a2be2]/50 transition-colors" data-tilt data-tilt-max="10">
-                <div class="tilt-content">
-                    <i class="fas fa-server text-4xl text-[#8a2be2] mb-6 glow-text-purple"></i>
-                    <h3 class="font-sync text-xl text-white mb-6 uppercase tracking-widest">Data & Cloud</h3>
+            <div class="glass-panel p-8 rounded-3xl reveal text-center" data-tilt data-tilt-max="8">
+                <div class="depth-1">
+                    <i class="fas fa-server text-5xl text-[#8a2be2] mb-6 text-glow-purple depth-2"></i>
+                    <h3 class="font-sync text-xl text-white mb-8 uppercase tracking-widest">Data & Cloud</h3>
                     <div class="flex flex-wrap justify-center gap-3">
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-300 border border-white/10">Oracle (OCI)</span>
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-300 border border-white/10">Snowflake</span>
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-300 border border-white/10">PostgreSQL</span>
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-300 border border-white/10">Docker</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-200 border border-[#8a2be2]/30">Oracle (OCI)</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-200 border border-[#8a2be2]/30">Snowflake</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-200 border border-[#8a2be2]/30">PostgreSQL</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-200 border border-[#8a2be2]/30">Docker</span>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-3d p-8 rounded-3xl reveal text-center hover:border-[#00f0ff]/50 transition-colors" data-tilt data-tilt-max="10">
-                <div class="tilt-content">
-                    <i class="fas fa-chart-pie text-4xl text-[#00f0ff] mb-6 glow-text"></i>
-                    <h3 class="font-sync text-xl text-white mb-6 uppercase tracking-widest">Analytics & Core</h3>
+            <div class="glass-panel p-8 rounded-3xl reveal text-center" data-tilt data-tilt-max="8">
+                <div class="depth-1">
+                    <i class="fas fa-chart-pie text-5xl text-[#00f0ff] mb-6 text-glow-cyan depth-2"></i>
+                    <h3 class="font-sync text-xl text-white mb-8 uppercase tracking-widest">Analytics & Core</h3>
                     <div class="flex flex-wrap justify-center gap-3">
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-300 border border-white/10">Cryptography</span>
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-300 border border-white/10">Pandas/NumPy</span>
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-300 border border-white/10">Tableau</span>
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-300 border border-white/10">EDA</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-200 border border-[#00f0ff]/20">Cryptography</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-200 border border-[#00f0ff]/20">Pandas/NumPy</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-200 border border-[#00f0ff]/20">Tableau</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-200 border border-[#00f0ff]/20">EDA</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-24 text-center relative z-10 border-t border-white/5 mt-10 bg-gradient-to-t from-[#020204] to-transparent">
-        <h2 class="font-sync text-3xl md:text-5xl text-white mb-16 tracking-wide">Establish <span class="text-[#00f0ff] glow-text">Connection.</span></h2>
+    <footer class="py-24 text-center relative z-10 border-t border-white/10 mt-10 bg-gradient-to-t from-[#000000] to-transparent">
+        <h2 class="font-sync text-3xl md:text-5xl text-white mb-16 tracking-wide">Establish <span class="text-[#00f0ff] text-glow-cyan">Connection.</span></h2>
         <div class="flex justify-center space-x-8 mb-16">
-            <a href="mailto:satish.addala1144@gmail.com" class="w-16 h-16 rounded-2xl glass-3d flex items-center justify-center text-gray-300 hover:text-[#00f0ff] hover:-translate-y-2 hover:border-[#00f0ff]/50 transition-all text-2xl" aria-label="Email"><i class="fas fa-envelope"></i></a>
-            <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="w-16 h-16 rounded-2xl glass-3d flex items-center justify-center text-gray-300 hover:text-[#8a2be2] hover:-translate-y-2 hover:border-[#8a2be2]/50 transition-all text-2xl" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="tel:+18167154265" class="w-16 h-16 rounded-2xl glass-3d flex items-center justify-center text-gray-300 hover:text-[#00f0ff] hover:-translate-y-2 hover:border-[#00f0ff]/50 transition-all text-2xl" aria-label="Phone"><i class="fas fa-phone"></i></a>
+            <a href="mailto:satish.addala1144@gmail.com" class="w-16 h-16 rounded-2xl glass-panel flex items-center justify-center text-white hover:text-[#00f0ff] hover:-translate-y-2 hover:border-[#00f0ff]/50 transition-all text-2xl shadow-[0_0_15px_rgba(0,0,0,0.5)]" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="w-16 h-16 rounded-2xl glass-panel flex items-center justify-center text-white hover:text-[#8a2be2] hover:-translate-y-2 hover:border-[#8a2be2]/50 transition-all text-2xl shadow-[0_0_15px_rgba(0,0,0,0.5)]" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
-        <p class="font-sync text-[10px] text-gray-600 uppercase tracking-[0.5em]">System.Secure.Connect(Satish_Addala) // 2026</p>
+        <p class="font-sync text-[10px] text-gray-500 uppercase tracking-[0.5em]">System.Secure.Connect(Satish_Addala) // 2026</p>
     </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // 1. Scroll Reveal
+            // 1. Scroll Reveal Logic
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -393,115 +399,174 @@
             
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            // 2. High-End Three.js Particle Ocean
-            const container = document.getElementById('webgl-container');
-            
+            // 2. High-End Three.js Neural Web (Constellation) Setup
+            const canvas = document.getElementById('webgl-canvas');
             const scene = new THREE.Scene();
-            scene.fog = new THREE.FogExp2(0x020204, 0.001); // Blends into background
+            scene.fog = new THREE.FogExp2(0x020205, 0.001);
             
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 3000);
-            camera.position.z = 1000;
-            camera.position.y = 400;
-            camera.lookAt(0, 0, 0);
-
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(window.innerWidth, window.innerHeight);
-            container.appendChild(renderer.domElement);
 
-            // Particle Setup
-            const SEPARATION = 100, AMOUNTX = 60, AMOUNTY = 60;
-            let particles, count = 0;
+            // Create Data Nodes (Particles)
+            const particleCount = 700;
             const geometry = new THREE.BufferGeometry();
-            const positions = new Float32Array(AMOUNTX * AMOUNTY * 3);
-            const colors = new Float32Array(AMOUNTX * AMOUNTY * 3);
-            
-            const color1 = new THREE.Color(0x00f0ff); // Neon Blue
-            const color2 = new THREE.Color(0x8a2be2); // Neon Purple
-            
-            let i = 0, j = 0;
-            for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
-                for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
-                    positions[ i ] = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 ); 
-                    positions[ i + 1 ] = 0; 
-                    positions[ i + 2 ] = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 ); 
-                    
-                    // Gradient mix
-                    const mixedColor = color1.clone().lerp(color2, ix / AMOUNTX);
-                    colors[i] = mixedColor.r;
-                    colors[i+1] = mixedColor.g;
-                    colors[i+2] = mixedColor.b;
-                    
-                    i += 3;
-                    j ++;
-                }
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+
+            const color1 = new THREE.Color(0x00f0ff); // Cyan
+            const color2 = new THREE.Color(0x8a2be2); // Purple
+
+            for (let i = 0; i < particleCount; i++) {
+                // Spread particles in a massive 3D space
+                positions[i * 3] = (Math.random() - 0.5) * 2500;     // x
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 2500; // y
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 2000; // z
+
+                // Randomly mix cyan and purple for each node
+                const mixColor = Math.random() > 0.5 ? color1 : color2;
+                colors[i * 3] = mixColor.r;
+                colors[i * 3 + 1] = mixColor.g;
+                colors[i * 3 + 2] = mixColor.b;
             }
+
             geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-            // Generate Circular Particles
-            function createCircleTexture() {
+            // Custom Circular Node Texture
+            function createCircle() {
                 const canvas = document.createElement('canvas');
-                canvas.width = 64;
-                canvas.height = 64;
+                canvas.width = 32; canvas.height = 32;
                 const ctx = canvas.getContext('2d');
                 ctx.beginPath();
-                ctx.arc(32, 32, 24, 0, 2 * Math.PI, false);
+                ctx.arc(16, 16, 14, 0, Math.PI * 2);
                 ctx.fillStyle = '#ffffff';
                 ctx.fill();
                 return new THREE.CanvasTexture(canvas);
             }
 
             const material = new THREE.PointsMaterial({
-                size: 10,
-                map: createCircleTexture(),
+                size: 8,
+                map: createCircle(),
                 vertexColors: true,
                 transparent: true,
                 opacity: 0.8,
-                alphaTest: 0.5
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
             });
 
-            particles = new THREE.Points(geometry, material);
+            const particles = new THREE.Points(geometry, material);
             scene.add(particles);
 
-            // Interaction Variables
+            // Connect lines between close nodes (The "Neural Web")
+            const lineMaterial = new THREE.LineBasicMaterial({
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.15,
+                blending: THREE.AdditiveBlending
+            });
+            
+            // We will dynamically update lines in the animation loop
+            const lineGeometry = new THREE.BufferGeometry();
+            const maxConnections = 1500;
+            const linePositions = new Float32Array(maxConnections * 6);
+            const lineColors = new Float32Array(maxConnections * 6);
+            lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+            lineGeometry.setAttribute('color', new THREE.BufferAttribute(lineColors, 3));
+            const linesMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+            scene.add(linesMesh);
+
+            // Interaction state
             let mouseX = 0;
+            let mouseY = 0;
             let targetX = 0;
-            let windowHalfX = window.innerWidth / 2;
+            let targetY = 0;
+            let scrollZ = 0;
+            let targetScrollZ = 0;
 
             window.addEventListener('resize', () => {
-                windowHalfX = window.innerWidth / 2;
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
             });
-            
+
             window.addEventListener('mousemove', (e) => {
-                targetX = (e.clientX - windowHalfX) * 0.5;
+                targetX = (e.clientX - window.innerWidth / 2) * 0.5;
+                targetY = (e.clientY - window.innerHeight / 2) * 0.5;
             });
 
-            // Animation Loop
+            // 3D Scrolling Effect (Fly through the data network on scroll)
+            window.addEventListener('scroll', () => {
+                // Map the scroll Y value to the Camera Z depth
+                targetScrollZ = -(window.scrollY * 0.8); 
+            });
+
+            let time = 0;
+
             function animate() {
                 requestAnimationFrame(animate);
+                time += 0.001;
+
+                // Smoothly interpolate camera position based on mouse AND scroll
+                mouseX += (targetX - mouseX) * 0.05;
+                mouseY += (targetY - mouseY) * 0.05;
+                scrollZ += (targetScrollZ - scrollZ) * 0.05;
+
+                // Move camera forward based on scroll, shift X/Y based on mouse
+                camera.position.x = mouseX;
+                camera.position.y = -mouseY;
+                camera.position.z = 800 + scrollZ; // Base distance + scroll fly-through
                 
-                const positionsAttr = geometry.attributes.position.array;
-                let i = 0;
-                for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
-                    for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
-                        // Wave math
-                        positionsAttr[ i + 1 ] = ( Math.sin( ( ix + count ) * 0.3 ) * 50 ) +
-                                               ( Math.sin( ( iy + count ) * 0.5 ) * 50 );
-                        i += 3;
+                // Slow rotation of the entire data network
+                particles.rotation.y = time * 0.2;
+                particles.rotation.x = time * 0.1;
+                linesMesh.rotation.y = time * 0.2;
+                linesMesh.rotation.x = time * 0.1;
+
+                // Dynamically calculate lines based on distance (highly impressive visually)
+                let vertexpos = 0;
+                let colorpos = 0;
+                let numConnected = 0;
+                
+                const positionsAttr = particles.geometry.attributes.position.array;
+                const colorsAttr = particles.geometry.attributes.color.array;
+
+                for (let i = 0; i < particleCount; i++) {
+                    for (let j = i + 1; j < particleCount; j++) {
+                        const dx = positionsAttr[i * 3] - positionsAttr[j * 3];
+                        const dy = positionsAttr[i * 3 + 1] - positionsAttr[j * 3 + 1];
+                        const dz = positionsAttr[i * 3 + 2] - positionsAttr[j * 3 + 2];
+                        const distSq = dx * dx + dy * dy + dz * dz;
+
+                        // If nodes are close enough, draw a connecting data line
+                        if (distSq < 30000 && numConnected < maxConnections) {
+                            linePositions[vertexpos++] = positionsAttr[i * 3];
+                            linePositions[vertexpos++] = positionsAttr[i * 3 + 1];
+                            linePositions[vertexpos++] = positionsAttr[i * 3 + 2];
+
+                            linePositions[vertexpos++] = positionsAttr[j * 3];
+                            linePositions[vertexpos++] = positionsAttr[j * 3 + 1];
+                            linePositions[vertexpos++] = positionsAttr[j * 3 + 2];
+
+                            lineColors[colorpos++] = colorsAttr[i * 3];
+                            lineColors[colorpos++] = colorsAttr[i * 3 + 1];
+                            lineColors[colorpos++] = colorsAttr[i * 3 + 2];
+
+                            lineColors[colorpos++] = colorsAttr[j * 3];
+                            lineColors[colorpos++] = colorsAttr[j * 3 + 1];
+                            lineColors[colorpos++] = colorsAttr[j * 3 + 2];
+
+                            numConnected++;
+                        }
                     }
                 }
-                geometry.attributes.position.needsUpdate = true;
                 
-                // Smooth camera panning
-                mouseX += (targetX - mouseX) * 0.05;
-                camera.position.x += ( mouseX - camera.position.x ) * 0.05;
-                camera.lookAt( scene.position );
-                
-                count += 0.05; // Wave speed
+                linesMesh.geometry.setDrawRange(0, numConnected * 2);
+                linesMesh.geometry.attributes.position.needsUpdate = true;
+                linesMesh.geometry.attributes.color.needsUpdate = true;
+
                 renderer.render(scene, camera);
             }
             
