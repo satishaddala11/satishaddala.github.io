@@ -14,6 +14,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
+
     <style>
         :root { 
             --neon-blue: #00f0ff; 
@@ -31,8 +34,8 @@
         
         .font-sync { font-family: 'Syncopate', sans-serif; }
         
-        /* 3D Canvas Background */
-        #canvas3d { 
+        /* 3D WebGL Container */
+        #webgl-container { 
             position: fixed; 
             top: 0; 
             left: 0; 
@@ -44,7 +47,7 @@
         
         /* 3D Glassmorphism Cards */
         .glass-3d { 
-            background: rgba(10, 10, 15, 0.45); 
+            background: rgba(10, 10, 15, 0.5); 
             backdrop-filter: blur(20px); 
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08); 
@@ -80,7 +83,7 @@
             100% { opacity: 0.9; filter: blur(18px); } 
         }
         
-        /* Crystal Clear Original Image Mask */
+        /* Crystal Clear Original Image Mask (No dulling overlays) */
         .img-container {
             width: 320px; 
             height: 320px; 
@@ -95,6 +98,8 @@
             height: 100%;
             object-fit: cover;
             object-position: top;
+            /* Ensures original colors pop */
+            filter: brightness(1.05) contrast(1.05); 
         }
 
         /* Scroll Reveal Animation */
@@ -117,7 +122,7 @@
 </head>
 <body class="selection:bg-[#00f0ff] selection:text-black">
 
-    <canvas id="canvas3d"></canvas>
+    <div id="webgl-container"></div>
 
     <nav class="fixed top-0 w-full z-50 py-6 px-6 md:px-16 flex justify-between items-center transition-all duration-300 bg-gradient-to-b from-[#020204] to-transparent" id="navbar">
         <div class="font-sync font-bold text-xl tracking-widest text-white">SATISH <span class="text-[#00f0ff]">ADDALA</span></div>
@@ -372,12 +377,10 @@
         <p class="font-sync text-[10px] text-gray-600 uppercase tracking-[0.5em]">System.Secure.Connect(Satish_Addala) // 2026</p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
-    
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // 1. Scroll Reveal Intersection Observer
+            // 1. Scroll Reveal
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -390,96 +393,119 @@
             
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            // 2. High-Performance 3D Canvas Background with 3D Scrolling Effect
-            const canvas = document.getElementById("canvas3d");
-            const ctx = canvas.getContext("2d", { alpha: false }); 
+            // 2. High-End Three.js Particle Ocean
+            const container = document.getElementById('webgl-container');
             
-            let width, height;
-            let stars = [];
-            const numStars = 600;
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x020204, 0.001); // Blends into background
             
-            let mouseX = 0;
-            let mouseY = 0;
-            let targetX = 0;
-            let targetY = 0;
-            
-            // 3D Scrolling velocity variable
-            let scrollVelocity = 0;
-            let lastScrollY = window.scrollY;
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 3000);
+            camera.position.z = 1000;
+            camera.position.y = 400;
+            camera.lookAt(0, 0, 0);
 
-            function initCanvas() {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-                stars = [];
-                for (let i = 0; i < numStars; i++) {
-                    stars.push({
-                        x: Math.random() * width - width / 2,
-                        y: Math.random() * height - height / 2,
-                        z: Math.random() * 2000,
-                        size: Math.random() * 1.5 + 0.5
-                    });
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            // Particle Setup
+            const SEPARATION = 100, AMOUNTX = 60, AMOUNTY = 60;
+            let particles, count = 0;
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(AMOUNTX * AMOUNTY * 3);
+            const colors = new Float32Array(AMOUNTX * AMOUNTY * 3);
+            
+            const color1 = new THREE.Color(0x00f0ff); // Neon Blue
+            const color2 = new THREE.Color(0x8a2be2); // Neon Purple
+            
+            let i = 0, j = 0;
+            for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
+                for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
+                    positions[ i ] = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 ); 
+                    positions[ i + 1 ] = 0; 
+                    positions[ i + 2 ] = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 ); 
+                    
+                    // Gradient mix
+                    const mixedColor = color1.clone().lerp(color2, ix / AMOUNTX);
+                    colors[i] = mixedColor.r;
+                    colors[i+1] = mixedColor.g;
+                    colors[i+2] = mixedColor.b;
+                    
+                    i += 3;
+                    j ++;
                 }
             }
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-            window.addEventListener('resize', initCanvas);
+            // Generate Circular Particles
+            function createCircleTexture() {
+                const canvas = document.createElement('canvas');
+                canvas.width = 64;
+                canvas.height = 64;
+                const ctx = canvas.getContext('2d');
+                ctx.beginPath();
+                ctx.arc(32, 32, 24, 0, 2 * Math.PI, false);
+                ctx.fillStyle = '#ffffff';
+                ctx.fill();
+                return new THREE.CanvasTexture(canvas);
+            }
+
+            const material = new THREE.PointsMaterial({
+                size: 10,
+                map: createCircleTexture(),
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                alphaTest: 0.5
+            });
+
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            // Interaction Variables
+            let mouseX = 0;
+            let targetX = 0;
+            let windowHalfX = window.innerWidth / 2;
+
+            window.addEventListener('resize', () => {
+                windowHalfX = window.innerWidth / 2;
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
             
             window.addEventListener('mousemove', (e) => {
-                targetX = (e.clientX - window.innerWidth / 2) * 0.08;
-                targetY = (e.clientY - window.innerHeight / 2) * 0.08;
+                targetX = (e.clientX - windowHalfX) * 0.5;
             });
 
-            // Track scroll speed to create a 3D warp effect when scrolling
-            window.addEventListener('scroll', () => {
-                let currentScrollY = window.scrollY;
-                scrollVelocity = currentScrollY - lastScrollY;
-                lastScrollY = currentScrollY;
-            });
-
-            initCanvas();
-
+            // Animation Loop
             function animate() {
-                mouseX += (targetX - mouseX) * 0.05;
-                mouseY += (targetY - mouseY) * 0.05;
-                
-                // Decay scroll velocity smoothly
-                scrollVelocity *= 0.95; 
-
-                // Base speed + extra speed from scrolling
-                let warpSpeed = 4 + Math.abs(scrollVelocity) * 0.2;
-
-                ctx.fillStyle = "rgba(2, 2, 4, 0.3)"; 
-                ctx.fillRect(0, 0, width, height);
-
-                const cx = width / 2 + mouseX;
-                const cy = height / 2 + mouseY + (scrollVelocity * 0.5); // Camera shifts slightly on scroll
-
-                for (let i = 0; i < numStars; i++) {
-                    let star = stars[i];
-                    star.z -= warpSpeed; 
-
-                    if (star.z <= 0) {
-                        star.z = 2000;
-                        star.x = Math.random() * width - width / 2;
-                        star.y = Math.random() * height - height / 2;
-                    }
-
-                    const scale = 500 / star.z;
-                    const x2d = star.x * scale + cx;
-                    const y2d = star.y * scale + cy;
-                    const size2d = star.size * scale;
-
-                    const depthAlpha = Math.max(0, Math.min(1, 2000 / star.z - 0.5));
-                    const isPurple = (i % 3 === 0); 
-                    ctx.fillStyle = isPurple ? `rgba(138, 43, 226, ${depthAlpha})` : `rgba(0, 240, 255, ${depthAlpha})`;
-
-                    ctx.beginPath();
-                    ctx.arc(x2d, y2d, size2d, 0, Math.PI * 2);
-                    ctx.fill();
-                }
                 requestAnimationFrame(animate);
+                
+                const positionsAttr = geometry.attributes.position.array;
+                let i = 0;
+                for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
+                    for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
+                        // Wave math
+                        positionsAttr[ i + 1 ] = ( Math.sin( ( ix + count ) * 0.3 ) * 50 ) +
+                                               ( Math.sin( ( iy + count ) * 0.5 ) * 50 );
+                        i += 3;
+                    }
+                }
+                geometry.attributes.position.needsUpdate = true;
+                
+                // Smooth camera panning
+                mouseX += (targetX - mouseX) * 0.05;
+                camera.position.x += ( mouseX - camera.position.x ) * 0.05;
+                camera.lookAt( scene.position );
+                
+                count += 0.05; // Wave speed
+                renderer.render(scene, camera);
             }
             
-            requestAnimationFrame(animate);
+            animate();
         });
     </script>
 </body>
