@@ -3,449 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satish Addala | Senior Data Architect</title>
+    <title>Satish Addala | Data Architect</title>
     
     <meta name="title" content="Satish Addala | Senior Data Architect">
     <meta name="description" content="Master's Candidate at UMKC specializing in Distributed Systems, Data Engineering, and Applied Cryptography.">
     <link rel="icon" type="image/png" href="IMG_2443.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
-
     <style>
+        /* Minimalist, high-contrast professional palette */
         :root { 
-            --neon-cyan: #00e5ff; 
-            --neon-purple: #9d4edd; 
-            --bg-deep: #030407; 
+            --bg-primary: #0a0a0a; 
+            --bg-secondary: #121212;
+            --text-primary: #ffffff;
+            --text-secondary: #a3a3a3;
+            --border-color: rgba(255, 255, 255, 0.1);
         }
         
-        /* Hide default cursor for custom node cursor */
-        body, a, button { 
-            cursor: none !important; 
-        }
-
         body { 
-            font-family: 'Space Grotesk', sans-serif; 
-            background-color: var(--bg-deep); 
-            color: #ffffff; 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-primary); 
+            color: var(--text-primary); 
             overflow-x: hidden; 
             scroll-behavior: smooth;
         }
         
-        .font-sync { font-family: 'Syncopate', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
         
-        /* System Boot Preloader */
-        #preloader {
-            position: fixed; inset: 0; z-index: 9999;
-            background: var(--bg-deep);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.5s ease;
+        /* Clean, subtle card styling without heavy 3D */
+        .editorial-card { 
+            background: var(--bg-secondary); 
+            border: 1px solid var(--border-color); 
+            border-radius: 12px;
+            transition: all 0.3s ease;
         }
-        .loader-text {
-            font-family: 'Syncopate', sans-serif; color: var(--neon-cyan); font-size: 0.8rem; letter-spacing: 0.3em;
-            animation: pulseFlash 1.5s infinite;
-        }
-        .progress-bar { width: 200px; height: 2px; background: rgba(255,255,255,0.1); margin-top: 20px; position: relative; overflow: hidden; }
-        .progress-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--neon-cyan); animation: loadBar 1.5s cubic-bezier(0.8, 0, 0.2, 1) forwards; }
-        
-        @keyframes pulseFlash { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        @keyframes loadBar { 0% { width: 0%; } 100% { width: 100%; } }
-
-        /* Custom Cursor */
-        #custom-cursor {
-            position: fixed; top: 0; left: 0; width: 12px; height: 12px;
-            background: var(--neon-cyan); border-radius: 50%;
-            pointer-events: none; z-index: 10000;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 15px var(--neon-cyan);
-            transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
-            mix-blend-mode: screen;
-        }
-        #custom-cursor.cursor-hover {
-            width: 40px; height: 40px; background: rgba(0, 229, 255, 0.2); border: 1px solid var(--neon-cyan);
+        .editorial-card:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        /* 3D WebGL Container */
-        #webgl-canvas { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;
-        }
-        
-        /* Premium Glass Panels */
-        .glass-card { 
-            background: rgba(10, 12, 18, 0.6); 
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(0, 229, 255, 0.15); 
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-            border-radius: 20px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            transform-style: preserve-3d;
-        }
-        .glass-card:hover {
-            border-color: rgba(0, 229, 255, 0.5); box-shadow: 0 20px 50px rgba(0, 229, 255, 0.15); transform: translateY(-5px);
-        }
-
-        /* 3D Depth Elements */
-        .depth-1 { transform: translateZ(30px); }
-        .depth-2 { transform: translateZ(60px); }
-
-        /* Accent Text */
-        .text-gradient {
-            background: linear-gradient(to right, var(--neon-cyan), var(--neon-purple));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .text-glow { text-shadow: 0 0 15px rgba(0, 229, 255, 0.5); }
-        
-        /* Magnetic Button Helper */
-        .magnetic { transition: transform 0.1s ease; display: inline-flex; }
-
-        /* Passport Image Frame */
+        /* Elegant Passport Photo Frame */
         .passport-frame {
-            width: 280px; height: 360px; border-radius: 24px;
-            border: 2px solid rgba(0, 229, 255, 0.4);
-            box-shadow: 0 0 40px rgba(0, 229, 255, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.5);
-            overflow: hidden; background: #000; position: relative;
-        }
-        .passport-frame::after {
-            content: ''; position: absolute; inset: 0; border-radius: 24px;
-            box-shadow: inset 0 0 20px rgba(0,229,255,0.2); pointer-events: none;
+            width: 260px; 
+            height: 340px; 
+            border-radius: 8px;
+            overflow: hidden; 
+            position: relative;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
         .passport-frame img {
-            width: 100%; height: 100%; object-fit: cover; object-position: top;
-            filter: brightness(1.08) contrast(1.05); 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            object-position: top;
+            filter: brightness(1.05); /* Original clarity */
+            transition: transform 0.5s ease;
+        }
+        .passport-frame:hover img {
+            transform: scale(1.02);
         }
 
-        /* Fade-Up Scroll Reveal */
-        .fade-up { opacity: 0; transform: translateY(50px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        /* Professional smooth fade-up */
+        .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .fade-up.active { opacity: 1; transform: translateY(0); }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-deep); }
-        ::-webkit-scrollbar-thumb { background: rgba(0, 229, 255, 0.3); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
+        /* Typography utility */
+        .text-muted { color: var(--text-secondary); }
+        
+        /* Clean Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
     </style>
 </head>
-<body class="selection:bg-[#00e5ff] selection:text-black">
+<body class="selection:bg-white selection:text-black antialiased">
 
-    <div id="preloader">
-        <div class="loader-text">INITIALIZING SECURE CONNECTION...</div>
-        <div class="progress-bar"><div class="progress-fill"></div></div>
-    </div>
-
-    <div id="custom-cursor"></div>
-
-    <canvas id="webgl-canvas"></canvas>
-
-    <nav class="fixed top-0 w-full z-50 py-5 px-6 md:px-12 flex justify-between items-center transition-all duration-300" style="background: linear-gradient(to bottom, rgba(3,4,7,0.9), transparent);">
-        <div class="font-sync font-bold text-2xl tracking-widest text-white">SATISH <span class="text-[#00e5ff]">ADDALA</span></div>
-        <div class="hidden md:flex space-x-8 text-xs font-bold tracking-[0.15em] uppercase items-center text-gray-300">
-            <a href="#projects" class="hover:text-[#00e5ff] transition-colors magnetic-wrap">Projects</a>
-            <a href="#experience" class="hover:text-[#00e5ff] transition-colors magnetic-wrap">Experience</a>
-            <a href="#education" class="hover:text-[#00e5ff] transition-colors magnetic-wrap">Education</a>
-            <a href="#skills" class="hover:text-[#00e5ff] transition-colors magnetic-wrap">Skills</a>
-            <a href="SA_RESUME1144.pdf" target="_blank" class="magnetic px-6 py-2.5 rounded-full bg-black/50 backdrop-blur-md text-[#00e5ff] border border-[#00e5ff]/40 hover:bg-[#00e5ff] hover:text-black transition-colors flex items-center gap-2 shadow-[0_0_15px_rgba(0,229,255,0.2)]">
-                <i class="fas fa-file-pdf pointer-events-none"></i> <span class="pointer-events-none">View Resume</span>
+    <nav class="fixed top-0 w-full z-50 py-6 px-6 md:px-16 flex justify-between items-center bg-[#0a0a0a]/90 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+        <div class="font-serif font-bold text-2xl tracking-wide text-white">SATISH ADDALA</div>
+        <div class="hidden md:flex space-x-10 text-xs font-semibold tracking-widest uppercase items-center text-gray-400">
+            <a href="#projects" class="hover:text-white transition-colors">Projects</a>
+            <a href="#experience" class="hover:text-white transition-colors">Experience</a>
+            <a href="#education" class="hover:text-white transition-colors">Education</a>
+            <a href="#skills" class="hover:text-white transition-colors">Skills</a>
+            <a href="SA_RESUME1144.pdf" target="_blank" class="px-6 py-2.5 rounded-full bg-white text-black hover:bg-gray-200 transition-colors flex items-center gap-2 font-bold">
+                View Resume
             </a>
         </div>
     </nav>
 
-    <section class="min-h-screen flex items-center justify-center pt-24 px-6 max-w-7xl mx-auto">
-        <div class="grid lg:grid-cols-2 gap-16 items-center w-full">
+    <section class="min-h-screen flex items-center justify-center pt-24 px-6 max-w-6xl mx-auto">
+        <div class="grid lg:grid-cols-12 gap-16 items-center w-full">
             
-            <div class="z-10 fade-up active">
-                <p class="font-sync text-[#00e5ff] text-xs mb-6 tracking-[0.3em] uppercase text-glow">Master's Candidate @ UMKC</p>
-                <h1 class="font-sync text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.1] mb-6">
-                    Data <br>
-                    <span class="text-gradient">Architect.</span>
+            <div class="lg:col-span-8 z-10 fade-up active">
+                <p class="text-sm mb-6 tracking-widest uppercase text-muted font-semibold">Master's Candidate @ UMKC</p>
+                <h1 class="font-serif text-5xl md:text-7xl font-bold text-white leading-tight mb-8">
+                    Architecting data systems for <span class="italic text-gray-400">scale</span> and <span class="italic text-gray-400">security.</span>
                 </h1>
-                <p class="text-gray-300 text-lg md:text-xl font-light leading-relaxed mb-10 max-w-lg">
-                    I am a performance-driven engineer specializing in <strong class="text-white">Scalable Data Architecture</strong>, <strong class="text-white">High-Concurrency Processing</strong>, and <strong class="text-white">Applied Cryptography</strong>. Proven capability to transform raw datasets into high-fidelity business intelligence.
+                <p class="text-gray-400 text-lg md:text-xl font-light leading-relaxed mb-10 max-w-2xl">
+                    I am a Data Architect and Engineer specializing in High-Concurrency Processing, Scalable Cloud Infrastructure, and Applied Cryptography. I transform complex, raw datasets into secure, high-fidelity business intelligence.
                 </p>
-                <div class="flex flex-wrap gap-6">
-                    <a href="mailto:satish.addala1144@gmail.com" class="magnetic px-8 py-4 bg-[#00e5ff] text-black rounded-xl hover:bg-white transition-colors font-sync font-bold tracking-widest uppercase text-xs flex items-center gap-2 shadow-[0_0_20px_rgba(0,229,255,0.4)]">
-                        <i class="fas fa-paper-plane pointer-events-none"></i> <span class="pointer-events-none">Reach Out</span>
+                <div class="flex flex-wrap gap-4">
+                    <a href="mailto:satish.addala1144@gmail.com" class="px-8 py-3.5 bg-white text-black rounded-full hover:bg-gray-200 transition-colors font-semibold text-sm flex items-center gap-2">
+                        Reach Out
                     </a>
-                    <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="magnetic w-14 h-14 flex items-center justify-center bg-white/5 backdrop-blur-md border border-white/20 rounded-xl hover:border-[#00e5ff] transition-colors text-xl text-white hover:text-[#00e5ff]">
-                        <i class="fab fa-linkedin-in pointer-events-none"></i>
+                    <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="px-8 py-3.5 border border-white/20 rounded-full hover:bg-white/10 transition-colors font-semibold text-sm flex items-center gap-2 text-white">
+                        <i class="fab fa-linkedin-in"></i> LinkedIn
                     </a>
                 </div>
             </div>
 
-            <div class="flex justify-center lg:justify-end z-10 fade-up active" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-perspective="1000">
-                <div class="glass-card p-4 rounded-[28px]">
-                    <div class="passport-frame depth-2">
-                        <img src="IMG_2443.png" alt="Satish Addala">
-                    </div>
+            <div class="lg:col-span-4 flex justify-center lg:justify-end z-10 fade-up active">
+                <div class="passport-frame">
+                    <img src="IMG_2443.png" alt="Satish Addala">
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="py-32 px-6 max-w-7xl mx-auto z-10 relative">
-        <h2 class="font-sync text-4xl md:text-5xl font-bold text-center mb-24 tracking-widest fade-up text-white">Projects</h2>
+    <section id="projects" class="py-24 px-6 max-w-6xl mx-auto border-t border-white/5">
+        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-16 text-white fade-up">Projects</h2>
         
-        <div class="grid lg:grid-cols-2 gap-10">
-            <div class="glass-card p-10 fade-up" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
-                <div class="depth-1 flex flex-col h-full justify-between">
-                    <div>
-                        <div class="w-16 h-16 bg-[#00e5ff]/10 rounded-2xl flex items-center justify-center text-[#00e5ff] text-3xl mb-8 depth-2 border border-[#00e5ff]/20"><i class="fas fa-share-nodes"></i></div>
-                        <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">Federated Machine Learning</h3>
-                        <p class="text-gray-300 font-light leading-relaxed mb-8">Architected a privacy-preserving distributed machine learning framework where models train locally on edge devices. Successfully aggregated model weights securely without exposing raw user data, ensuring absolute privacy while maintaining optimal predictive accuracy.</p>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="editorial-card p-10 fade-up flex flex-col justify-between h-full">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 font-serif text-white">Federated Machine Learning</h3>
+                    <div class="text-gray-400 font-light leading-relaxed mb-8 space-y-4 text-sm md:text-base">
+                        <p><strong class="text-white font-medium">Theme:</strong> Privacy-Preserving AI.</p>
+                        <p><strong class="text-white font-medium">What I did:</strong> Built a distributed system where machine learning models train locally on edge devices rather than centralized servers.</p>
+                        <p><strong class="text-white font-medium">Output:</strong> Successfully aggregated model weights securely without ever exposing or moving the raw user data, ensuring absolute privacy while maintaining optimal predictive accuracy.</p>
                     </div>
-                    <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#00e5ff] uppercase tracking-widest">
-                        <span class="px-3 py-1 bg-[#00e5ff]/10 border border-[#00e5ff]/30 rounded-md">Data Science</span>
-                        <span class="px-3 py-1 bg-[#00e5ff]/10 border border-[#00e5ff]/30 rounded-md">Python</span>
-                    </div>
+                </div>
+                <div class="flex flex-wrap gap-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    <span class="px-3 py-1 bg-white/5 border border-white/10 rounded">Data Science</span>
+                    <span class="px-3 py-1 bg-white/5 border border-white/10 rounded">Python</span>
                 </div>
             </div>
 
-            <div class="glass-card p-10 fade-up" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
-                <div class="depth-1 flex flex-col h-full justify-between">
-                    <div>
-                        <div class="w-16 h-16 bg-[#9d4edd]/10 rounded-2xl flex items-center justify-center text-[#9d4edd] text-3xl mb-8 depth-2 border border-[#9d4edd]/20"><i class="fas fa-database"></i></div>
-                        <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">Scalable Data Modules</h3>
-                        <p class="text-gray-300 font-light leading-relaxed mb-8">Analyzed and resolved severe bottlenecks in high-traffic, legacy Java and SQL enterprise applications. Completely redesigned database schemas and queries, clearing system logjams and drastically accelerating the retrieval velocity of critical corporate reports.</p>
+            <div class="editorial-card p-10 fade-up flex flex-col justify-between h-full">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 font-serif text-white">Scalable Data Modules</h3>
+                    <div class="text-gray-400 font-light leading-relaxed mb-8 space-y-4 text-sm md:text-base">
+                        <p><strong class="text-white font-medium">Theme:</strong> Enterprise Data Optimization.</p>
+                        <p><strong class="text-white font-medium">What I did:</strong> Analyzed and resolved severe bottlenecks in high-traffic, legacy Java and SQL enterprise applications.</p>
+                        <p><strong class="text-white font-medium">Output:</strong> Completely redesigned the database schemas and queries, clearing system logjams and drastically accelerating the retrieval velocity of critical corporate reports.</p>
                     </div>
-                    <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#9d4edd] uppercase tracking-widest">
-                        <span class="px-3 py-1 bg-[#9d4edd]/10 border border-[#9d4edd]/30 rounded-md">Java / SQL</span>
-                        <span class="px-3 py-1 bg-[#9d4edd]/10 border border-[#9d4edd]/30 rounded-md">Optimization</span>
-                    </div>
+                </div>
+                <div class="flex flex-wrap gap-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    <span class="px-3 py-1 bg-white/5 border border-white/10 rounded">Java / SQL</span>
+                    <span class="px-3 py-1 bg-white/5 border border-white/10 rounded">Optimization</span>
                 </div>
             </div>
 
-            <div class="glass-card p-10 fade-up" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
-                <div class="depth-1 flex flex-col h-full justify-between">
-                    <div>
-                        <div class="w-16 h-16 bg-[#9d4edd]/10 rounded-2xl flex items-center justify-center text-[#9d4edd] text-3xl mb-8 depth-2 border border-[#9d4edd]/20"><i class="fas fa-microchip"></i></div>
-                        <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">IoT Data Ingestion Pipeline</h3>
-                        <p class="text-gray-300 font-light leading-relaxed mb-8">Engineered a real-time environmental monitoring system by connecting remote hardware sensor arrays to a custom-built, secure cloud backend. Delivered a highly reliable data pipeline that continuously streams, processes, and displays high-frequency data without dropping packets under heavy load.</p>
+            <div class="editorial-card p-10 fade-up flex flex-col justify-between h-full">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 font-serif text-white">IoT Data Ingestion Pipeline</h3>
+                    <div class="text-gray-400 font-light leading-relaxed mb-8 space-y-4 text-sm md:text-base">
+                        <p><strong class="text-white font-medium">Theme:</strong> Real-time Environmental Monitoring.</p>
+                        <p><strong class="text-white font-medium">What I did:</strong> Connected remote hardware sensor arrays to a custom-built, secure cloud backend.</p>
+                        <p><strong class="text-white font-medium">Output:</strong> Delivered a highly reliable data pipeline that continuously streams, processes, and displays high-frequency environmental data without dropping packets under heavy load.</p>
                     </div>
-                    <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#9d4edd] uppercase tracking-widest">
-                        <span class="px-3 py-1 bg-[#9d4edd]/10 border border-[#9d4edd]/30 rounded-md">Data Streams</span>
-                        <span class="px-3 py-1 bg-[#9d4edd]/10 border border-[#9d4edd]/30 rounded-md">Cloud APIs</span>
-                    </div>
+                </div>
+                <div class="flex flex-wrap gap-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    <span class="px-3 py-1 bg-white/5 border border-white/10 rounded">Data Streams</span>
+                    <span class="px-3 py-1 bg-white/5 border border-white/10 rounded">Cloud APIs</span>
                 </div>
             </div>
             
-            <div class="glass-card p-10 fade-up" data-tilt data-tilt-max="5" data-tilt-perspective="1500">
-                <div class="depth-1 flex flex-col h-full justify-between">
-                    <div>
-                        <div class="w-16 h-16 bg-[#00e5ff]/10 rounded-2xl flex items-center justify-center text-[#00e5ff] text-3xl mb-8 depth-2 border border-[#00e5ff]/20"><i class="fas fa-chart-line"></i></div>
-                        <h3 class="text-2xl font-bold mb-4 font-sync tracking-wide text-white">Predictive Analytics</h3>
-                        <p class="text-gray-300 font-light leading-relaxed mb-8">Processed large, unstructured datasets using automated Python scripts (Pandas/NumPy) to uncover hidden consumer buying patterns. Built interactive Tableau dashboards that translate complex analytics into clear, actionable visual metrics for executive-level strategic decisions.</p>
+            <div class="editorial-card p-10 fade-up flex flex-col justify-between h-full">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 font-serif text-white">Predictive Consumer Analytics</h3>
+                    <div class="text-gray-400 font-light leading-relaxed mb-8 space-y-4 text-sm md:text-base">
+                        <p><strong class="text-white font-medium">Theme:</strong> Business Intelligence & Strategy.</p>
+                        <p><strong class="text-white font-medium">What I did:</strong> Processed large, unstructured datasets using automated Python scripts (Pandas/NumPy) to uncover hidden patterns.</p>
+                        <p><strong class="text-white font-medium">Output:</strong> Discovered hidden consumer buying behaviors and built interactive Tableau dashboards that translate complex analytics into clear, actionable visual metrics for executives.</p>
                     </div>
-                    <div class="flex flex-wrap gap-3 text-[10px] font-sync text-[#00e5ff] uppercase tracking-widest">
-                        <span class="px-3 py-1 bg-[#00e5ff]/10 border border-[#00e5ff]/30 rounded-md">EDA / Python</span>
-                        <span class="px-3 py-1 bg-[#00e5ff]/10 border border-[#00e5ff]/30 rounded-md">Tableau</span>
-                    </div>
+                </div>
+                <div class="flex flex-wrap gap-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    <span class="px-3 py-1 bg-white/5 border border-white/10 rounded">EDA / Python</span>
+                    <span class="px-3 py-1 bg-white/5 border border-white/10 rounded">Tableau</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="experience" class="py-32 px-6 max-w-5xl mx-auto z-10 relative">
-        <h2 class="font-sync text-4xl md:text-5xl font-bold text-center mb-24 tracking-widest fade-up text-white">Experience</h2>
+    <section id="experience" class="py-24 px-6 max-w-4xl mx-auto border-t border-white/5">
+        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-16 text-white fade-up">Experience</h2>
         
-        <div class="space-y-10">
-            <div class="glass-card p-8 md:p-10 fade-up relative" data-tilt data-tilt-max="2" data-tilt-perspective="2000">
-                <div class="depth-1">
-                    <div class="absolute -left-[1px] top-1/2 w-1 h-16 bg-[#00e5ff] rounded-r-md -translate-y-1/2 shadow-[0_0_15px_#00e5ff]"></div>
-                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-0">IS Lab Assistant</h3>
-                        <span class="text-[#00e5ff] text-xs font-sync px-4 py-2 bg-[#00e5ff]/10 rounded border border-[#00e5ff]/20 w-fit">UMKC</span>
-                    </div>
-                    <p class="text-[#00e5ff] font-sync text-[11px] tracking-widest uppercase mb-6">Kansas City, Missouri, USA | 2024 - Present</p>
-                    <p class="text-gray-300 text-lg font-light leading-relaxed">Provide critical tier-2 technical support and network orchestration for university-wide infrastructure, ensuring 99.9% uptime for advanced research facilities. Developed and deployed custom Python automation scripts that monitor system health, effectively reducing manual diagnostic times by 20% and improving overall lab efficiency.</p>
+        <div class="space-y-12">
+            <div class="fade-up relative pl-8 border-l border-white/20">
+                <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-white rounded-full"></div>
+                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-3">
+                    <h3 class="text-2xl font-bold text-white">IS Lab Assistant <span class="text-gray-400 font-normal text-lg ml-2">@ UMKC</span></h3>
+                    <span class="text-gray-400 text-sm font-medium mt-1 md:mt-0 tracking-wide">2024 - Present</span>
                 </div>
+                <p class="text-gray-500 text-sm tracking-widest uppercase mb-5 font-semibold">Kansas City, Missouri, USA</p>
+                <p class="text-gray-300 font-light leading-relaxed">Provide critical tier-2 technical support and network orchestration for university-wide infrastructure, ensuring 99.9% uptime for advanced research facilities. Developed and deployed custom Python automation scripts that monitor system health, effectively reducing manual diagnostic times by 20% and improving overall lab efficiency.</p>
             </div>
 
-            <div class="glass-card p-8 md:p-10 fade-up relative" data-tilt data-tilt-max="2" data-tilt-perspective="2000">
-                <div class="depth-1">
-                    <div class="absolute -left-[1px] top-1/2 w-1 h-16 bg-[#9d4edd] rounded-r-md -translate-y-1/2 shadow-[0_0_15px_#9d4edd]"></div>
-                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-0">Data Associate</h3>
-                        <span class="text-[#9d4edd] text-xs font-sync px-4 py-2 bg-[#9d4edd]/10 rounded border border-[#9d4edd]/20 w-fit">IBM</span>
-                    </div>
-                    <p class="text-[#9d4edd] font-sync text-[11px] tracking-widest uppercase mb-6">Hyderabad, India | 2023 - 2024</p>
-                    <p class="text-gray-300 text-lg font-light leading-relaxed">Architected and maintained scalable Java and SQL-based data modules to support high-concurrency enterprise applications. Spearheaded the restructuring of legacy relational database schemas, which significantly reduced query latency and optimized the data retrieval process for real-time corporate reporting.</p>
+            <div class="fade-up relative pl-8 border-l border-white/20">
+                <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-gray-500 rounded-full"></div>
+                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-3">
+                    <h3 class="text-2xl font-bold text-white">Data Associate <span class="text-gray-400 font-normal text-lg ml-2">@ IBM</span></h3>
+                    <span class="text-gray-400 text-sm font-medium mt-1 md:mt-0 tracking-wide">2023 - 2024</span>
                 </div>
+                <p class="text-gray-500 text-sm tracking-widest uppercase mb-5 font-semibold">Hyderabad, India</p>
+                <p class="text-gray-300 font-light leading-relaxed">Architected and maintained scalable Java and SQL-based data modules to support high-concurrency enterprise applications. Spearheaded the restructuring of legacy relational database schemas, which significantly reduced query latency and optimized the data retrieval process for real-time corporate reporting.</p>
             </div>
 
-            <div class="glass-card p-8 md:p-10 fade-up relative" data-tilt data-tilt-max="2" data-tilt-perspective="2000">
-                <div class="depth-1">
-                    <div class="absolute -left-[1px] top-1/2 w-1 h-16 bg-gray-400 rounded-r-md -translate-y-1/2"></div>
-                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-0">Analytics Intern</h3>
-                        <span class="text-gray-300 text-xs font-sync px-4 py-2 bg-white/10 rounded border border-white/20 w-fit">Accenture</span>
-                    </div>
-                    <p class="text-gray-400 font-sync text-[11px] tracking-widest uppercase mb-6">Hyderabad, India | 2022 - 2023</p>
-                    <p class="text-gray-300 text-lg font-light leading-relaxed">Conducted intensive Exploratory Data Analysis (EDA) across massive, heterogeneous datasets to support internal business strategies. Built robust data cleaning pipelines in Python and utilized advanced visualization frameworks to design interactive KPI dashboards for executive stakeholders.</p>
+            <div class="fade-up relative pl-8 border-l border-transparent">
+                <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-gray-700 rounded-full"></div>
+                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-3">
+                    <h3 class="text-2xl font-bold text-white">Analytics Intern <span class="text-gray-400 font-normal text-lg ml-2">@ Accenture</span></h3>
+                    <span class="text-gray-400 text-sm font-medium mt-1 md:mt-0 tracking-wide">2022 - 2023</span>
                 </div>
+                <p class="text-gray-500 text-sm tracking-widest uppercase mb-5 font-semibold">Hyderabad, India</p>
+                <p class="text-gray-300 font-light leading-relaxed">Conducted intensive Exploratory Data Analysis (EDA) across massive, heterogeneous datasets to support internal business strategies. Built robust data cleaning pipelines in Python and utilized advanced visualization frameworks to design interactive KPI dashboards for executive stakeholders.</p>
             </div>
         </div>
     </section>
 
-    <section id="education" class="py-32 px-6 max-w-7xl mx-auto z-10 relative">
-        <h2 class="font-sync text-4xl md:text-5xl font-bold text-center mb-24 tracking-widest fade-up text-white">Education</h2>
+    <section id="education" class="py-24 px-6 max-w-6xl mx-auto border-t border-white/5">
+        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-16 text-white fade-up">Education & Credentials</h2>
         
-        <div class="grid md:grid-cols-2 gap-10">
-            <div class="glass-card p-10 fade-up" data-tilt data-tilt-max="4" data-tilt-perspective="1000">
-                <div class="depth-1">
-                    <h3 class="font-sync text-2xl text-white mb-10 border-b border-white/10 pb-4 tracking-widest uppercase"><i class="fas fa-graduation-cap text-[#00e5ff] mr-3"></i> Degrees</h3>
-                    
-                    <div class="mb-10">
-                        <div class="flex justify-between items-start mb-3">
-                            <div>
-                                <h4 class="text-xl md:text-2xl font-bold text-white">MS, Computer Science</h4>
-                                <p class="text-[#00e5ff] text-lg mt-1 font-medium">University of Missouri-Kansas City</p>
-                            </div>
-                            <span class="text-[#00e5ff] font-sync text-[10px] tracking-widest bg-[#00e5ff]/10 px-3 py-2 rounded border border-[#00e5ff]/30 text-center">2024 - 2026</span>
+        <div class="grid lg:grid-cols-2 gap-12">
+            <div class="fade-up">
+                <h3 class="text-xl font-semibold text-gray-400 uppercase tracking-widest mb-8 border-b border-white/10 pb-4">Academic Background</h3>
+                
+                <div class="mb-10">
+                    <h4 class="text-2xl font-bold text-white mb-1">MS, Computer Science</h4>
+                    <p class="text-gray-300 text-lg mb-2">University of Missouri-Kansas City</p>
+                    <div class="flex items-center gap-4 text-sm text-gray-500 font-medium">
+                        <span><i class="fas fa-map-marker-alt mr-1"></i> Kansas City, Missouri, USA</span>
+                        <span class="px-2 py-1 bg-white/10 rounded text-white text-xs">2024 - 2026</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-2xl font-bold text-white mb-1">B.Tech, Computer Science</h4>
+                    <p class="text-gray-300 text-lg mb-2">GITAM University</p>
+                    <div class="flex items-center gap-4 text-sm text-gray-500 font-medium">
+                        <span><i class="fas fa-map-marker-alt mr-1"></i> Visakhapatnam, India</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-gray-300 text-xs">2019 - 2023</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fade-up">
+                <h3 class="text-xl font-semibold text-gray-400 uppercase tracking-widest mb-8 border-b border-white/10 pb-4">Industry Certifications</h3>
+                <ul class="space-y-4">
+                    <li class="editorial-card p-5 flex items-center gap-4">
+                        <i class="fas fa-database text-white text-xl w-6 text-center"></i>
+                        <div>
+                            <h4 class="text-white font-bold">Snowflake Data Warehousing</h4>
+                            <p class="text-gray-400 text-sm">Workshop Completion • 2026</p>
                         </div>
-                        <p class="text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-map-marker-alt text-[#00e5ff]"></i> Kansas City, Missouri, USA</p>
-                    </div>
-                    
-                    <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <div>
-                                <h4 class="text-xl md:text-2xl font-bold text-white">B.Tech, Computer Science</h4>
-                                <p class="text-gray-300 text-lg mt-1 font-medium">GITAM University</p>
-                            </div>
-                            <span class="text-gray-300 font-sync text-[10px] tracking-widest bg-white/5 px-3 py-2 rounded border border-white/10 text-center">2019 - 2023</span>
+                    </li>
+                    <li class="editorial-card p-5 flex items-center gap-4">
+                        <i class="fas fa-cloud text-white text-xl w-6 text-center"></i>
+                        <div>
+                            <h4 class="text-white font-bold">Oracle Cloud (OCI) Foundations</h4>
+                            <p class="text-gray-400 text-sm">Certified Associate • 2025</p>
                         </div>
-                        <p class="text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-map-marker-alt text-gray-500"></i> Visakhapatnam, India</p>
-                    </div>
+                    </li>
+                    <li class="editorial-card p-5 flex items-center gap-4">
+                        <i class="fas fa-brain text-white text-xl w-6 text-center"></i>
+                        <div>
+                            <h4 class="text-white font-bold">IBM Python for Data Science</h4>
+                            <p class="text-gray-400 text-sm">AI Specialization</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-24 px-6 max-w-6xl mx-auto border-t border-white/5">
+        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-16 text-center text-white fade-up">Skills Matrix</h2>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="editorial-card p-8 fade-up text-center">
+                <h3 class="text-sm font-bold text-gray-400 mb-6 uppercase tracking-widest">Development</h3>
+                <div class="flex flex-wrap justify-center gap-2">
+                    <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200">Python</span>
+                    <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200">Java</span>
+                    <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200">SQL</span>
+                    <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200">JavaScript</span>
                 </div>
             </div>
 
-            <div class="glass-card p-10 fade-up" data-tilt data-tilt-max="4" data-tilt-perspective="1000">
-                <div class="depth-1">
-                    <h3 class="font-sync text-2xl text-white mb-10 border-b border-white/10 pb-4 tracking-widest uppercase"><i class="fas fa-certificate text-[#9d4edd] mr-3"></i> Certifications</h3>
-                    <ul class="space-y-6">
-                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5 hover:border-[#00e5ff]/40 transition-colors cursor-pointer magnetic">
-                            <div class="w-12 h-12 rounded-lg bg-[#00e5ff]/10 flex items-center justify-center text-[#00e5ff] flex-shrink-0 text-xl pointer-events-none"><i class="fas fa-database"></i></div>
-                            <div class="pointer-events-none">
-                                <h4 class="text-white text-base font-bold">Snowflake Data Warehousing</h4>
-                                <p class="text-gray-400 text-xs mt-1 font-sync">Workshop 2026</p>
-                            </div>
-                        </li>
-                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5 hover:border-[#9d4edd]/40 transition-colors cursor-pointer magnetic">
-                            <div class="w-12 h-12 rounded-lg bg-[#9d4edd]/10 flex items-center justify-center text-[#9d4edd] flex-shrink-0 text-xl pointer-events-none"><i class="fas fa-cloud"></i></div>
-                            <div class="pointer-events-none">
-                                <h4 class="text-white text-base font-bold">Oracle Cloud (OCI) Foundations</h4>
-                                <p class="text-gray-400 text-xs mt-1 font-sync">Certified Associate 2025</p>
-                            </div>
-                        </li>
-                        <li class="flex items-center gap-5 p-5 bg-white/5 rounded-xl border border-white/5 hover:border-gray-400/40 transition-colors cursor-pointer magnetic">
-                            <div class="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center text-gray-300 flex-shrink-0 text-xl pointer-events-none"><i class="fas fa-brain"></i></div>
-                            <div class="pointer-events-none">
-                                <h4 class="text-white text-base font-bold">IBM Python for Data Science</h4>
-                                <p class="text-gray-400 text-xs mt-1 font-sync">AI Specialization</p>
-                            </div>
-                        </li>
-                    </ul>
+            <div class="editorial-card p-8 fade-up text-center">
+                <h3 class="text-sm font-bold text-gray-400 mb-6 uppercase tracking-widest">Data & Cloud</h3>
+                <div class="flex flex-wrap justify-center gap-2">
+                    <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200">Oracle (OCI)</span>
+                    <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200">Snowflake</span>
+                    <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200">PostgreSQL</span>
+                    <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200">Docker</span>
+                </div>
+            </div>
+
+            <div class="editorial-card p-8 fade-up text-center">
+                <h3 class="text-sm font-bold text-gray-400 mb-6 uppercase tracking-widest">Analytics & Core</h3>
+                <div class="flex flex-wrap justify-center gap-2">
+                    <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200">Cryptography</span>
+                    <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200">Pandas/NumPy</span>
+                    <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200">Tableau</span>
+                    <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200">EDA</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="skills" class="py-32 px-6 max-w-7xl mx-auto z-10 relative">
-        <h2 class="font-sync text-4xl md:text-5xl font-bold text-center mb-24 tracking-widest fade-up text-white">Skills Matrix</h2>
+    <footer class="py-32 text-center border-t border-white/10 mt-10 bg-[#121212]">
+        <h2 class="font-serif text-4xl md:text-6xl font-bold text-white mb-12">Let's build something <span class="italic text-gray-400">exceptional.</span></h2>
         
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="glass-card p-8 fade-up text-center" data-tilt data-tilt-max="8">
-                <div class="depth-1">
-                    <i class="fas fa-code text-4xl text-[#00e5ff] mb-6 text-glow depth-2"></i>
-                    <h3 class="font-sync text-lg text-white mb-8 uppercase tracking-widest">Development</h3>
-                    <div class="flex flex-wrap justify-center gap-3">
-                        <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200 border border-white/10">Python</span>
-                        <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200 border border-white/10">Java</span>
-                        <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200 border border-white/10">SQL</span>
-                        <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200 border border-white/10">JavaScript</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="glass-card p-8 fade-up text-center" data-tilt data-tilt-max="8">
-                <div class="depth-1">
-                    <i class="fas fa-server text-4xl text-[#9d4edd] mb-6 depth-2" style="text-shadow: 0 0 15px rgba(157,78,221,0.5);"></i>
-                    <h3 class="font-sync text-lg text-white mb-8 uppercase tracking-widest">Data & Cloud</h3>
-                    <div class="flex flex-wrap justify-center gap-3">
-                        <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200 border border-white/10">Oracle (OCI)</span>
-                        <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200 border border-white/10">Snowflake</span>
-                        <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200 border border-white/10">PostgreSQL</span>
-                        <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200 border border-white/10">Docker</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="glass-card p-8 fade-up text-center" data-tilt data-tilt-max="8">
-                <div class="depth-1">
-                    <i class="fas fa-chart-pie text-4xl text-[#00e5ff] mb-6 text-glow depth-2"></i>
-                    <h3 class="font-sync text-lg text-white mb-8 uppercase tracking-widest">Analytics</h3>
-                    <div class="flex flex-wrap justify-center gap-3">
-                        <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200 border border-white/10">Cryptography</span>
-                        <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200 border border-white/10">Pandas/NumPy</span>
-                        <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200 border border-white/10">Tableau</span>
-                        <span class="px-4 py-2 bg-white/5 rounded text-sm text-gray-200 border border-white/10">EDA</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-24 text-center relative z-10 bg-gradient-to-t from-[#000000] to-transparent border-t border-white/10 mt-10">
-        <h2 class="font-sync text-3xl md:text-5xl font-bold text-white mb-16 tracking-wide">Establish <span class="text-[#00e5ff] text-glow">Connection.</span></h2>
-        
-        <div class="flex justify-center space-x-8 mb-16">
-            <a href="mailto:satish.addala1144@gmail.com" class="magnetic w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#00e5ff] transition-colors text-2xl shadow-[0_0_15px_rgba(0,0,0,0.5)]" aria-label="Email"><i class="fas fa-envelope pointer-events-none"></i></a>
-            <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="magnetic w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#9d4edd] transition-colors text-2xl shadow-[0_0_15px_rgba(0,0,0,0.5)]" aria-label="LinkedIn"><i class="fab fa-linkedin-in pointer-events-none"></i></a>
-            <a href="tel:+18167154265" class="magnetic w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-white hover:text-[#00e5ff] transition-colors text-2xl shadow-[0_0_15px_rgba(0,0,0,0.5)]" aria-label="Phone"><i class="fas fa-phone pointer-events-none"></i></a>
+        <div class="flex flex-wrap justify-center gap-6 mb-16">
+            <a href="mailto:satish.addala1144@gmail.com" class="px-8 py-4 bg-white text-black rounded-full hover:bg-gray-200 transition-colors font-bold flex items-center gap-2">
+                <i class="fas fa-envelope"></i> Email Me
+            </a>
+            <a href="https://www.linkedin.com/in/satish-addala-26a05320b" target="_blank" class="px-8 py-4 editorial-card text-white hover:bg-white/5 transition-colors font-bold flex items-center gap-2">
+                <i class="fab fa-linkedin-in"></i> LinkedIn
+            </a>
+            <a href="tel:+18167154265" class="px-8 py-4 editorial-card text-white hover:bg-white/5 transition-colors font-bold flex items-center gap-2">
+                <i class="fas fa-phone"></i> Call
+            </a>
         </div>
         
-        <p class="font-sync text-[10px] text-gray-500 uppercase tracking-[0.5em]">System.Secure.Connect(Satish_Addala) // 2026</p>
+        <p class="text-xs text-gray-500 uppercase tracking-widest font-semibold">© 2026 Satish Addala. Data Architect.</p>
     </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            
-            // 1. System Boot Preloader
-            setTimeout(() => {
-                const preloader = document.getElementById('preloader');
-                preloader.style.opacity = '0';
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                }, 500);
-            }, 1500);
-
-            // 2. Custom Node Cursor
-            const cursor = document.getElementById('custom-cursor');
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-            });
-            
-            document.querySelectorAll('a, button, .magnetic, .magnetic-wrap').forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
-            });
-
-            // 3. Magnetic Buttons Logic
-            document.querySelectorAll('.magnetic').forEach(btn => {
-                btn.addEventListener('mousemove', (e) => {
-                    const rect = btn.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-                });
-                btn.addEventListener('mouseleave', () => {
-                    btn.style.transform = `translate(0px, 0px)`;
-                });
-            });
-
-            // 4. Fade-Up Intersection Observer
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -455,117 +348,8 @@
                     }
                 });
             }, observerOptions);
+            
             document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-            // 5. Three.js - 3D Quantum Data Terrain (Mobile Optimized)
-            const canvas = document.getElementById('webgl-canvas');
-            const scene = new THREE.Scene();
-            
-            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1500);
-            camera.position.y = 100;
-            camera.position.z = 400;
-
-            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // cap ratio for performance
-            renderer.setSize(window.innerWidth, window.innerHeight);
-
-            // Mobile Check & Optimization
-            const isMobile = window.innerWidth < 768;
-            const planeSegments = isMobile ? 35 : 80;
-            const nodeCount = isMobile ? 15 : 50;
-
-            const geometry = new THREE.PlaneGeometry(3000, 3000, planeSegments, planeSegments);
-            geometry.rotateX(-Math.PI / 2);
-
-            const positionAttribute = geometry.getAttribute('position');
-            const vertexCount = positionAttribute.count;
-            const originalY = new Float32Array(vertexCount);
-
-            for (let i = 0; i < vertexCount; i++) {
-                const x = positionAttribute.getX(i);
-                const z = positionAttribute.getZ(i);
-                const y = Math.sin(x * 0.005) * Math.cos(z * 0.005) * 150;
-                positionAttribute.setY(i, y);
-                originalY[i] = y;
-            }
-
-            const material = new THREE.MeshBasicMaterial({ 
-                color: 0x00e5ff, 
-                wireframe: true, 
-                transparent: true, 
-                opacity: 0.15 
-            });
-
-            const terrain = new THREE.Mesh(geometry, material);
-            scene.add(terrain);
-
-            const nodeGeometry = new THREE.OctahedronGeometry(isMobile ? 25 : 15, 0);
-            const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0x9d4edd, wireframe: true, transparent: true, opacity: 0.4 });
-            const nodes = new THREE.Group();
-            
-            for(let i=0; i<nodeCount; i++) {
-                const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
-                node.position.set(
-                    (Math.random() - 0.5) * 2000,
-                    (Math.random() * 300) + 50,
-                    (Math.random() - 0.5) * 2000
-                );
-                node.rotation.set(Math.random(), Math.random(), Math.random());
-                nodes.add(node);
-            }
-            scene.add(nodes);
-
-            let scrollY = 0;
-            let targetScrollY = 0;
-            let mouseX = 0;
-            let targetMouseX = 0;
-            let clock = new THREE.Clock();
-
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-
-            window.addEventListener('mousemove', (e) => {
-                targetMouseX = (e.clientX - window.innerWidth / 2) * 0.1;
-            });
-
-            window.addEventListener('scroll', () => {
-                targetScrollY = window.scrollY;
-            });
-
-            function animate() {
-                requestAnimationFrame(animate);
-                
-                const time = clock.getElapsedTime();
-
-                scrollY += (targetScrollY - scrollY) * 0.05;
-                mouseX += (targetMouseX - mouseX) * 0.05;
-
-                const positions = terrain.geometry.attributes.position;
-                for (let i = 0; i < vertexCount; i++) {
-                    const x = positions.getX(i);
-                    const newY = originalY[i] + Math.sin(x * 0.01 + time + scrollY * 0.005) * 30;
-                    positions.setY(i, newY);
-                }
-                positions.needsUpdate = true;
-
-                nodes.children.forEach((node, index) => {
-                    node.rotation.x += 0.005;
-                    node.rotation.y += 0.005;
-                    node.position.y += Math.sin(time * 2 + index) * 0.5; 
-                });
-
-                camera.position.z = 400 - (scrollY * 0.5);
-                camera.position.y = 100 - (scrollY * 0.02);
-                camera.position.x = mouseX;
-                camera.lookAt(mouseX * 0.5, camera.position.y - 50, camera.position.z - 300);
-
-                renderer.render(scene, camera);
-            }
-            
-            animate();
         });
     </script>
 </body>
