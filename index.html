@@ -37,23 +37,6 @@
         }
         
         .font-sync { font-family: 'Syncopate', sans-serif; }
-        
-        /* System Boot Preloader */
-        #preloader {
-            position: fixed; inset: 0; z-index: 9999;
-            background: var(--bg-deep);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.5s ease;
-        }
-        .loader-text {
-            font-family: 'Syncopate', sans-serif; color: var(--neon-cyan); font-size: 0.8rem; letter-spacing: 0.3em;
-            animation: pulseFlash 1.5s infinite;
-        }
-        .progress-bar { width: 200px; height: 2px; background: rgba(255,255,255,0.1); margin-top: 20px; position: relative; overflow: hidden; }
-        .progress-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--neon-cyan); animation: loadBar 1.5s cubic-bezier(0.8, 0, 0.2, 1) forwards; }
-        
-        @keyframes pulseFlash { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        @keyframes loadBar { 0% { width: 0%; } 100% { width: 100%; } }
 
         /* Custom Cursor */
         #custom-cursor {
@@ -130,11 +113,6 @@
     </style>
 </head>
 <body class="selection:bg-[#00e5ff] selection:text-black">
-
-    <div id="preloader">
-        <div class="loader-text">INITIALIZING SECURE CONNECTION...</div>
-        <div class="progress-bar"><div class="progress-fill"></div></div>
-    </div>
 
     <div id="custom-cursor"></div>
 
@@ -412,16 +390,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // 1. System Boot Preloader
-            setTimeout(() => {
-                const preloader = document.getElementById('preloader');
-                preloader.style.opacity = '0';
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                }, 500);
-            }, 1500);
-
-            // 2. Custom Node Cursor
+            // 1. Custom Node Cursor
             const cursor = document.getElementById('custom-cursor');
             document.addEventListener('mousemove', (e) => {
                 cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
@@ -432,7 +401,7 @@
                 el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
             });
 
-            // 3. Magnetic Buttons Logic
+            // 2. Magnetic Buttons Logic
             document.querySelectorAll('.magnetic').forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
                     const rect = btn.getBoundingClientRect();
@@ -445,7 +414,7 @@
                 });
             });
 
-            // 4. Fade-Up Intersection Observer
+            // 3. Fade-Up Intersection Observer
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -457,7 +426,7 @@
             }, observerOptions);
             document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-            // 5. Three.js - 3D Quantum Data Terrain (Mobile Optimized)
+            // 4. Three.js - 3D Quantum Data Terrain (Mobile Optimized)
             const canvas = document.getElementById('webgl-canvas');
             const scene = new THREE.Scene();
             
